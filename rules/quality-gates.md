@@ -1,6 +1,6 @@
 # Quality Gates
 
-These gates turn recurring failure patterns into repeatable questions. They are most useful when applied at issue drafting, implementation, review, and merge—not only at the end.
+These gates turn recurring failure patterns into repeatable checks. The strongest gates are enforced by GitHub rather than left as reminders.
 
 ## 1. Problem gate
 
@@ -21,8 +21,6 @@ Before creating a new component, helper, workflow, table, document, or service:
 - Would a new path duplicate behavior, data, tests, documentation, or maintenance?
 - If a new path is necessary, is the reason documented?
 - Is there a migration or deprecation plan for the old path?
-
-A useful default rule:
 
 > Before creating anything new, prove that the existing system cannot be extended safely.
 
@@ -77,11 +75,15 @@ Correct code can still be the wrong implementation path.
 
 ## 8. Documentation gate
 
+Documentation is a core Builder responsibility, not a separate after-the-fact task.
+
 - Did this change alter architecture, contracts, operations, terminology, data, or workflow?
 - Was the canonical document updated?
 - Was a competing document accidentally created?
 - Do examples and templates still match the real behavior?
 - Can another person or AI continue without the current chat?
+
+The Reviewer verifies documentation impact. The Architecture Steward checks long-term consistency when shared systems or architectural principles change.
 
 ## 9. Pull-request truth gate
 
@@ -92,18 +94,40 @@ Verify:
 - summary is current;
 - files and behavior described are accurate;
 - tests listed were actually run;
+- Builder self-grade is present;
+- independent Reviewer grade and confidence are present;
 - review findings and fixes are documented when useful;
-- known limitations are explicit;
-- checklist items reflect reality.
+- documentation checklist reflects reality;
+- known limitations are explicit.
 
-## 10. Merge gate
+## 10. Enforced GitHub gate
+
+Important requirements should not depend solely on someone remembering them.
+
+Use GitHub to enforce the workflow where possible:
+
+- PR templates require key testing, documentation, and review information;
+- automated PR-quality checks verify required fields or checklist state;
+- CI runs tests, linting, builds, and other objective validation;
+- branch protection requires designated status checks to pass;
+- unresolved required checks prevent merge;
+- review requirements can require approval before merge;
+- merge permissions remain with the authorized human.
+
+A checklist reminds. A required check prevents an incomplete merge.
+
+## 11. Merge gate
 
 A change is ready to merge when:
 
 - acceptance criteria are met;
 - meaningful review findings are resolved or explicitly accepted;
-- relevant checks pass;
+- required GitHub and CI checks pass;
 - documentation is current;
 - no unresolved duplication or architecture concern remains;
 - the Reviewer states clearly that it is ready;
 - the authorized human agrees with the outcome.
+
+> **The best process is one you cannot accidentally skip.**
+
+See [Every Manual Step Eventually Belongs in GitHub](../docs/011-every-manual-step-eventually-belongs-in-github.md).
