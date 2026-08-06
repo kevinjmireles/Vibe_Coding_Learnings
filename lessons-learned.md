@@ -279,42 +279,55 @@ The product became less dependent on optimistic assumptions. Recovery and failur
 
 ---
 
-## 8. The process had to work without a local computer
+## 8. Frustration pushed the workflow into the cloud
 
 ### Mistake or issue encountered
 
-A traditional development workflow assumes access to a local repository, terminal, IDE, large screen, and substantial working memory. That made it difficult to maintain momentum when working primarily from a phone.
+There was no grand mobile-first or cloud-first strategy. The workflow changed because working across devices was frustrating.
+
+When I used Claude or Cursor on my laptop, the work often was not visible when I moved to my phone. When I started work from my phone, the local repository on my laptop could be behind or out of sync. I had to remember which device held the latest version, copy context between tools, and worry about whether local and remote work matched.
+
+Claude on mobile created another practical problem: it did not provide an easy **copy all** option for long responses. Moving a large implementation plan, review, or decision from a mobile conversation into another tool could require awkward, repeated copying and pasting.
 
 ### Why it happened
 
-Most software-development tools and conventions were designed around desktop implementation rather than mobile direction, review, and coordination.
+The workflow had grown around individual tools and devices rather than around one durable system of record.
+
+- Local repositories tied important state to a particular computer.
+- AI conversations contained decisions that other tools could not automatically see.
+- Mobile interfaces made large context transfers especially painful.
+- Each transition between Claude, Cursor, ChatGPT, GitHub, laptop, and phone created another opportunity for context or code to diverge.
 
 ### System or process introduced
 
-The workflow gradually became:
+Mostly out of frustration, I shifted the work into the cloud and made GitHub the central handoff point.
+
+The process gradually became:
 
 - GitHub-first rather than local-first;
-- issue-driven rather than chat-driven;
-- cloud-based rather than device-dependent;
-- modular enough to review in small units;
-- documented enough that context did not need to stay in my head;
-- role-based so AI agents had clear responsibilities;
-- test-backed so confidence did not depend on manually reading every line;
-- prompt-light so tasks could be initiated and managed easily from a phone.
+- cloud-based rather than tied to one device;
+- issue-driven rather than dependent on copying entire conversations;
+- documented in the repository rather than left in AI chat;
+- organized into small pull requests that could be reviewed independently;
+- supported by Builder, Reviewer, and Steward instructions stored with the code;
+- test-backed so confidence did not depend on reproducing every step manually;
+- prompt-light because the prompt could point to durable instructions already in GitHub.
+
+The inability to easily copy everything from Claude mobile also created a useful forcing function: instead of repeatedly transferring large blocks of text, I instructed the AI to document decisions, findings, and next steps directly in GitHub.
 
 ### How it helped
 
-I can now manage almost the entire development lifecycle from an iPhone. In one recent week, I worked through roughly 30 pull requests primarily from my phone.
+The latest code, decisions, review findings, and documentation became available from either device and to whichever model was working next. Switching from laptop to phone stopped requiring the entire working context to be manually reconstructed.
 
-This includes defining work, directing implementation, reviewing results, resolving defects, documenting decisions, evaluating CI, and merging changes.
+It also made mobile development practical. I can now manage almost the entire development lifecycle from an iPhone. In one recent week, I worked through roughly 30 pull requests primarily from my phone, including defining work, directing implementation, reviewing results, resolving defects, documenting decisions, evaluating CI, and merging changes.
 
-The important innovation is not typing code on a small screen. It is making the development process sufficiently cloud-based, explicit, and verifiable that the device becomes far less important.
+The process became more portable not because mobile development tools suddenly became ideal, but because repeated annoyances forced state and knowledge out of individual devices and conversations.
 
 ### Reusable takeaway
 
-**Mobile-first development is primarily a process-design problem, not a mobile-code-editor problem.**
+**Cloud-first and mobile-first were not brilliant strategies. They were the eventual solution to synchronization problems and terrible copy-and-paste workflows.**
 
-A workflow that functions well on a phone is often more modular, documented, and resilient everywhere else.
+That is still a useful lesson: pay attention to recurring friction. The workaround you are forced to build may become a stronger operating model than the workflow you originally intended.
 
 ---
 
