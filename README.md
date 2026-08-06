@@ -29,9 +29,27 @@ The thesis is not that vibe coding is bad. It is simpler:
 9. [Audit Before You Refactor](docs/009-audit-before-you-refactor.md)
 10. [Systems Catch What People Miss](docs/010-systems-catch-what-people-miss.md)
 
+## Reusable toolkit
+
+These files abstract the most useful rules and prompts from the Fido development process so another project can adopt them without copying Fido-specific architecture.
+
+### Start here
+
+- [Reusable AI Development Instructions](templates/AI_INSTRUCTIONS.md) — a generalized starting point for `CLAUDE.md`, `AGENTS.md`, or another repository-level AI instruction file.
+- [AI Development Roles](roles/agent-roles.md) — Builder, Reviewer, Documentation Steward, Architecture Steward, and human product-owner responsibilities.
+- [Quality Gates](rules/quality-gates.md) — problem, duplication, scope, architecture, failure-mode, testing, documentation, and merge checks.
+
+### Copy-ready prompts and templates
+
+- [Core Prompts](prompts/core-prompts.md) — short Builder, Reviewer, Steward, issue-drafting, bug-investigation, audit, and mobile-handoff prompts.
+- [Issue Template](templates/issue-template.md) — a reusable structure for bounded, testable work.
+- [Pull Request Template](templates/pull-request-template.md) — implementation evidence, documentation checks, failure behavior, and independent grading.
+
+The prompts are intentionally short. Stable rules belong in version-controlled repository files; prompts should identify the current role and assignment.
+
 ## The recurring format
 
-Each page generally follows the same structure:
+Each lesson generally follows the same structure:
 
 1. **Failure pattern** — what went wrong or became difficult.
 2. **Why it happened** — the underlying process, architecture, or communication gap.
