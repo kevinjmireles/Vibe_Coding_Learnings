@@ -7,7 +7,7 @@ This page is an index, not a second copy of the lessons. Each topic has one cano
 3. [AI Defaults to Duplication](docs/003-ai-defaults-to-duplication.md) — require reuse or extension of existing systems before creating parallel ones.
 4. [Separate Builder, Reviewer, and Steward](docs/004-separate-builder-reviewer-and-steward.md) — creation and validation should be independent reasoning steps.
 5. [Regression Tests Are Compounding Assets](docs/005-regression-tests-are-compounding-assets.md) — every discovered defect can become a permanent safeguard.
-6. [Cloud-First Was Born from Frustration](docs/006-cloud-first-was-born-from-frustration.md) — shared cloud state removed device, copy-and-paste, and terminal friction.
+6. [The Repository Replaced My Laptop](docs/006-the-repository-replaced-my-laptop.md) — the shared repository, not a particular workstation, became the authoritative place where the project lives.
 7. [Document Everything Worth Remembering](docs/007-document-everything-worth-remembering.md) — documentation is part of the product's operating system.
 8. [Small, Self-Contained Issues Scale Better](docs/008-small-self-contained-issues-scale-better.md) — bounded work improves implementation, review, and recovery.
 9. [Audit Before You Refactor](docs/009-audit-before-you-refactor.md) — inventory the real problem before standardizing or rebuilding it.
