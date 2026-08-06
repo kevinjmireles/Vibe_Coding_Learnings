@@ -4,85 +4,75 @@
 
 ## Why this repository exists
 
-About a year ago, I was not a software engineer. I had product ideas, experience defining problems and building solutions, and growing curiosity about whether AI could help me create software that previously would have required a development team.
+About a year ago, I was not a programmer. I did, however, have nearly three decades of experience leading software and product initiatives at startups and global companies, including FedEx. I had seen what it takes to build scalable software—and hundreds of ways software projects fail.
 
-I did not begin with a deliberate engineering methodology. For much of the journey, I did not know what I was doing. I encountered problems, made mistakes, discovered weaknesses in my process, and then built systems to keep those problems from recurring.
+AI suddenly made it possible for me to participate directly in implementation. For the first few weeks, that felt almost magical. Then I tried to deploy, everything blew up, and several days of “one more fix” made it clear that AI had not eliminated the need for software engineering.
 
-Over time, that reactive learning became a much more disciplined development process. I moved from asking AI to produce features toward managing a production application through documented architecture, independent review, regression testing, reusable components, operational safeguards, and durable institutional memory.
+I did not begin with a deliberate methodology. Most improvements came from frustration: something failed, duplicated, drifted, became impossible to transfer between devices, or produced a result I could not trust. I then introduced a system or rule to make that class of failure less likely to recur.
 
 This repository documents that evolution.
 
-It is not intended to be a definitive guide to AI-assisted software development. It is a practical record of:
+The thesis is not that vibe coding is bad. It is simpler:
 
-- mistakes and issues I encountered;
-- why those problems occurred;
-- systems and processes I introduced in response;
-- how those changes improved speed, quality, and confidence;
-- lessons that may be reusable by other builders, publishers, and organizations.
+> **Vibe gets you started. Systems get you to production.**
 
-Everything here comes from building and operating a real product rather than from toy projects or theoretical exercises.
+## Initial failure patterns and lessons
 
-## The recurring pattern
+1. [There Is No Vibe in Production](docs/001-there-is-no-vibe-in-production.md)
+2. [The Repository Should Remember More Than the AI](docs/002-the-repository-should-remember-more-than-the-ai.md)
+3. [AI Defaults to Duplication](docs/003-ai-defaults-to-duplication.md)
+4. [Separate Builder, Reviewer, and Steward](docs/004-separate-builder-reviewer-and-steward.md)
+5. [Regression Tests Are Compounding Assets](docs/005-regression-tests-are-compounding-assets.md)
+6. [Cloud-First Was Born from Frustration](docs/006-cloud-first-was-born-from-frustration.md)
+7. [Document Everything Worth Remembering](docs/007-document-everything-worth-remembering.md)
+8. [Small, Self-Contained Issues Scale Better](docs/008-small-self-contained-issues-scale-better.md)
+9. [Audit Before You Refactor](docs/009-audit-before-you-refactor.md)
+10. [Systems Catch What People Miss](docs/010-systems-catch-what-people-miss.md)
 
-Most lessons in this repository follow the same structure:
+## The recurring format
 
-1. **Mistake or issue encountered** — what went wrong or became difficult.
+Each page generally follows the same structure:
+
+1. **Failure pattern** — what went wrong or became difficult.
 2. **Why it happened** — the underlying process, architecture, or communication gap.
-3. **System or process introduced** — what changed to reduce the chance of recurrence.
-4. **How it helped** — the practical impact on development.
-5. **Reusable takeaway** — what another person or organization could adopt.
+3. **System or process introduced** — what changed to reduce recurrence.
+4. **How it helped** — the practical impact.
+5. **Reusable takeaway** — what another builder or organization can apply.
 
-This framing is intentional. Most of the improvements were not part of a master plan. They emerged because the existing process failed in a visible way.
-
-## What this repository will cover
-
-- Moving from loosely defined requests to structured GitHub issues
-- Separating AI Builder, Reviewer, and Steward responsibilities
-- Making the repository—not an AI chat—the source of truth
-- Using architecture documents and decision records
-- Building regression tests around discovered failures
-- Requiring evidence rather than accepting “looks good”
-- Treating documentation as part of the product
-- Preventing repeated one-off implementations
-- Improving security, backups, and operational readiness
-- Designing work so it can be completed almost entirely from a phone
-- Coordinating multiple AI models without losing context
-- Simplifying prompts by moving durable instructions into the repository
+This framing is intentional. These practices were not invented as a polished methodology. They emerged from building and operating a real production product.
 
 ## Mobile-first development
 
-One unexpected result of these process improvements is that I can now do nearly all development work from an iPhone.
+One unexpected result is that I can now manage nearly the full development lifecycle from an iPhone:
 
-That does not mean manually typing every line of code on a phone. It means managing the full development lifecycle from a mobile device:
-
-- defining and refining issues;
-- making product and architecture decisions;
-- directing AI implementation;
-- reviewing pull requests;
-- evaluating tests and CI results;
-- documenting decisions;
-- requesting revisions;
-- merging completed work.
+- define and refine issues;
+- make product and architecture decisions;
+- direct AI implementation;
+- review pull requests;
+- evaluate tests and CI;
+- document decisions;
+- request revisions;
+- merge completed work.
 
 In one recent week, I worked through roughly 30 pull requests primarily from my phone.
 
-The phone did not create this workflow by itself. It exposed every part of the process that depended too heavily on a local machine, an oversized prompt, one AI conversation, or information held only in my head. Making the workflow mobile forced the project to become more cloud-based, documented, modular, and reproducible.
+This did not begin as a mobile strategy. Work performed with Claude and Cursor on a laptop did not reliably appear when I moved to mobile, and mobile work could leave the laptop repository out of sync. Claude mobile also made copying an entire long response difficult. Repeated synchronization and copy-and-paste frustration pushed the authoritative work into GitHub.
 
-The result was not merely a better mobile workflow. It was a better engineering workflow on every device.
+The result was not merely a better phone workflow. It was a more cloud-based, documented, modular, and reproducible engineering process on every device.
 
 ## Who this is for
 
 This repository may be useful to:
 
-- non-engineers beginning to build with AI;
-- product managers and founders creating their first software products;
+- non-programmers beginning to build with AI;
+- product managers and founders creating software products;
 - publishers exploring AI-enabled product development;
 - experienced developers evaluating AI-native workflows;
 - organizations trying to preserve quality while increasing development speed;
-- anyone attempting to move from experimental vibe coding toward dependable production software.
+- anyone moving from experimental vibe coding toward dependable production software.
 
 ## Current status
 
-This is a living collection. It will grow as earlier conversations, decisions, mistakes, and improvements are extracted and documented.
+This is a living collection. The initial pages are working drafts extracted from real Fido development experiences. They will be refined, expanded, and supplemented with practical tools, examples, and checklists over time.
 
-Start with [Lessons Learned](lessons-learned.md).
+The earlier consolidated notes remain available in [Lessons Learned](lessons-learned.md).
