@@ -14,6 +14,18 @@ This repository documents that evolution.
 
 > **Vibe gets you started. Systems get you to production.**
 
+## New to this? Start here
+
+You do not need to understand CI, branch protection, or software architecture to use the core lessons.
+
+The simplest version is:
+
+1. **Do not let important knowledge live only in an AI conversation.** Put requirements, decisions, and lessons in a shared repository.
+2. **Do not trust one person or AI to create and validate the same work.** Use independent implementation and review roles.
+3. **When the same failure happens twice, turn the lesson into a rule, test, template, or automated check.**
+
+For the five practices with the fastest payoff, see [Steal This](principles/steal-this.md). For the personal story behind the mobile-first workflow, see [How I Failed My Way into Mobile Software Development](docs/012-how-i-failed-my-way-into-mobile-software-development.md).
+
 ## Failure patterns and lessons
 
 1. [There Is No Vibe in Production](docs/001-there-is-no-vibe-in-production.md)
@@ -28,6 +40,9 @@ This repository documents that evolution.
 10. [Systems Catch What People Miss](docs/010-systems-catch-what-people-miss.md)
 11. [Every Manual Step Eventually Belongs in GitHub](docs/011-every-manual-step-eventually-belongs-in-github.md)
 12. [How I Failed My Way into Mobile Software Development](docs/012-how-i-failed-my-way-into-mobile-software-development.md)
+13. [Build a Team, Even If You Are the Only Person](docs/013-build-a-team-even-if-you-are-the-only-person.md)
+
+A concise linked index is also available in [Lessons Learned at a Glance](lessons-learned.md).
 
 ## Process evolution
 
@@ -77,17 +92,26 @@ One unexpected result is that I can now manage nearly the full development lifec
 
 In one recent week, I worked through roughly 30 pull requests primarily from my phone.
 
-This did not begin as a mobile strategy. I have a full-time job, a relationship I hope to keep, and a tendency to wake up in the middle of the night with some of my best ideas. I kept looking for a way to act on those ideas from bed without opening a laptop, fully waking myself up, or waking up my wife.
+This did not begin as a mobile strategy. It emerged from device-sync problems, copy-and-paste pain, limited desktop time, discomfort with terminal workflows, and a desire to act on middle-of-the-night ideas without getting out of bed and waking my wife.
 
-At the same time, work performed with Claude and Cursor on a laptop did not reliably appear when I moved to mobile, and mobile work could leave the laptop repository out of sync. Claude mobile also made copying an entire long response difficult. I still do not know a lick of code and can still get confused by instructions to run `pnpm` or restart a server.
-
-Repeated synchronization, terminal, and copy-and-paste frustration pushed the authoritative work into GitHub and cloud services. Once that happened, I rarely needed the terminal at all.
-
-The result was not merely a better phone workflow. It was a more cloud-based, documented, modular, and reproducible engineering process on every device.
+The full story lives in [How I Failed My Way into Mobile Software Development](docs/012-how-i-failed-my-way-into-mobile-software-development.md). The reusable process lesson lives separately in [Cloud-First Was Born from Frustration](docs/006-cloud-first-was-born-from-frustration.md).
 
 ## Who this is for
 
 This repository may be useful to non-programmers building with AI, product managers and founders, publishers exploring AI-enabled development, experienced developers evaluating AI-native workflows, and organizations trying to increase development speed without abandoning quality.
+
+## About the author and project
+
+I am **Kevin J. Mireles**, the only human developer and product owner behind this process. I still do not write code myself. I use AI agents, GitHub, tests, CI, documentation, and structured review to recreate many of the functions of a software team while retaining human responsibility for product judgment and final decisions.
+
+These lessons were developed while building **[Your Friend Fido](https://www.yourfriendfido.com)**, a personalized civic and local-information platform.
+
+- [Kevin Mireles on GitHub](https://github.com/kevinjmireles)
+- [Your Friend Fido](https://www.yourfriendfido.com)
+
+## Reuse
+
+The original lessons, prompts, checklists, and templates are available under the [Creative Commons Attribution 4.0 International License](LICENSE.md). You may copy and adapt them with attribution.
 
 ## Current status
 
