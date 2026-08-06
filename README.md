@@ -27,6 +27,7 @@ This repository documents that evolution.
 9. [Audit Before You Refactor](docs/009-audit-before-you-refactor.md)
 10. [Systems Catch What People Miss](docs/010-systems-catch-what-people-miss.md)
 11. [Every Manual Step Eventually Belongs in GitHub](docs/011-every-manual-step-eventually-belongs-in-github.md)
+12. [How I Failed My Way into Mobile Software Development](docs/012-how-i-failed-my-way-into-mobile-software-development.md)
 
 ## Process evolution
 
@@ -40,7 +41,7 @@ The current process is more useful when readers can see how it developed and whi
 - [Testing Evolution](evolution/testing-evolution.md)
 - [Documentation Evolution](evolution/documentation-evolution.md)
 
-Future revisions will add direct comparisons of representative production artifacts such as PR #1, #100, #200, #300, and later milestones, along with sample issues and the current issue and PR templates.
+Representative production pull requests are archived in [evolution/sample-prs](evolution/sample-prs/README.md). Because GitHub issues and pull requests share one numbering sequence, the archive uses real PRs that best show the process at different stages rather than forcing round-number milestones that may be issues instead of pull requests.
 
 ## Reusable toolkit
 
@@ -76,7 +77,11 @@ One unexpected result is that I can now manage nearly the full development lifec
 
 In one recent week, I worked through roughly 30 pull requests primarily from my phone.
 
-This did not begin as a mobile strategy. Work performed with Claude and Cursor on a laptop did not reliably appear when I moved to mobile, and mobile work could leave the laptop repository out of sync. Claude mobile also made copying an entire long response difficult. Repeated synchronization and copy-and-paste frustration pushed the authoritative work into GitHub.
+This did not begin as a mobile strategy. I have a full-time job, a relationship I hope to keep, and a tendency to wake up in the middle of the night with some of my best ideas. I kept looking for a way to act on those ideas from bed without opening a laptop, fully waking myself up, or waking up my wife.
+
+At the same time, work performed with Claude and Cursor on a laptop did not reliably appear when I moved to mobile, and mobile work could leave the laptop repository out of sync. Claude mobile also made copying an entire long response difficult. I still do not know a lick of code and can still get confused by instructions to run `pnpm` or restart a server.
+
+Repeated synchronization, terminal, and copy-and-paste frustration pushed the authoritative work into GitHub and cloud services. Once that happened, I rarely needed the terminal at all.
 
 The result was not merely a better phone workflow. It was a more cloud-based, documented, modular, and reproducible engineering process on every device.
 
@@ -86,4 +91,4 @@ This repository may be useful to non-programmers building with AI, product manag
 
 ## Current status
 
-This is a living collection of working drafts extracted from real Fido development experiences. The next step is to add concrete production examples showing the evolution of pull requests, issues, templates, tests, and repository instructions over time.
+This is a living collection of working drafts extracted from real Fido development experiences. The next step is to keep adding production evidence, reusable examples, and lessons as new failure patterns emerge.
