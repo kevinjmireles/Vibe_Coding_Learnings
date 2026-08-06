@@ -33,7 +33,7 @@ For the five practices with the fastest payoff, see [Steal This](principles/stea
 3. [AI Defaults to Duplication](docs/003-ai-defaults-to-duplication.md)
 4. [Separate Builder, Reviewer, and Steward](docs/004-separate-builder-reviewer-and-steward.md)
 5. [Regression Tests Are Compounding Assets](docs/005-regression-tests-are-compounding-assets.md)
-6. [Cloud-First Was Born from Frustration](docs/006-cloud-first-was-born-from-frustration.md)
+6. [The Repository Replaced My Laptop](docs/006-the-repository-replaced-my-laptop.md)
 7. [Document Everything Worth Remembering](docs/007-document-everything-worth-remembering.md)
 8. [Small, Self-Contained Issues Scale Better](docs/008-small-self-contained-issues-scale-better.md)
 9. [Audit Before You Refactor](docs/009-audit-before-you-refactor.md)
@@ -94,7 +94,7 @@ In one recent week, I worked through roughly 30 pull requests primarily from my 
 
 This did not begin as a mobile strategy. It emerged from device-sync problems, copy-and-paste pain, limited desktop time, discomfort with terminal workflows, and a desire to act on middle-of-the-night ideas without getting out of bed and waking my wife.
 
-The full story lives in [How I Failed My Way into Mobile Software Development](docs/012-how-i-failed-my-way-into-mobile-software-development.md). The reusable process lesson lives separately in [Cloud-First Was Born from Frustration](docs/006-cloud-first-was-born-from-frustration.md).
+The full personal story lives in [How I Failed My Way into Mobile Software Development](docs/012-how-i-failed-my-way-into-mobile-software-development.md). The reusable systems lesson lives separately in [The Repository Replaced My Laptop](docs/006-the-repository-replaced-my-laptop.md).
 
 ## Who this is for
 
