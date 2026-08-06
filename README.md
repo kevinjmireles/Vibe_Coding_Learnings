@@ -12,11 +12,9 @@ I did not begin with a deliberate methodology. Most improvements came from frust
 
 This repository documents that evolution.
 
-The thesis is not that vibe coding is bad. It is simpler:
-
 > **Vibe gets you started. Systems get you to production.**
 
-## Initial failure patterns and lessons
+## Failure patterns and lessons
 
 1. [There Is No Vibe in Production](docs/001-there-is-no-vibe-in-production.md)
 2. [The Repository Should Remember More Than the AI](docs/002-the-repository-should-remember-more-than-the-ai.md)
@@ -28,24 +26,39 @@ The thesis is not that vibe coding is bad. It is simpler:
 8. [Small, Self-Contained Issues Scale Better](docs/008-small-self-contained-issues-scale-better.md)
 9. [Audit Before You Refactor](docs/009-audit-before-you-refactor.md)
 10. [Systems Catch What People Miss](docs/010-systems-catch-what-people-miss.md)
+11. [Every Manual Step Eventually Belongs in GitHub](docs/011-every-manual-step-eventually-belongs-in-github.md)
+
+## Process evolution
+
+The current process is more useful when readers can see how it developed and which failures caused each change.
+
+- [Process Evolution Index](evolution/README.md)
+- [Prompt Evolution](evolution/prompt-evolution.md)
+- [Issue Evolution](evolution/issue-evolution.md)
+- [Pull Request Evolution](evolution/pr-evolution.md)
+- [Repository Instructions Evolution](evolution/claude-md-evolution.md)
+- [Testing Evolution](evolution/testing-evolution.md)
+- [Documentation Evolution](evolution/documentation-evolution.md)
+
+Future revisions will add direct comparisons of representative production artifacts such as PR #1, #100, #200, #300, and later milestones, along with sample issues and the current issue and PR templates.
 
 ## Reusable toolkit
 
-These files abstract the most useful rules and prompts from the Fido development process so another project can adopt them without copying Fido-specific architecture.
-
 ### Start here
 
-- [Reusable AI Development Instructions](templates/AI_INSTRUCTIONS.md) — a generalized starting point for `CLAUDE.md`, `AGENTS.md`, or another repository-level AI instruction file.
-- [AI Development Roles](roles/agent-roles.md) — Builder, Reviewer, Documentation Steward, Architecture Steward, and human product-owner responsibilities.
-- [Quality Gates](rules/quality-gates.md) — problem, duplication, scope, architecture, failure-mode, testing, documentation, and merge checks.
+- [Reusable AI Development Instructions](templates/AI_INSTRUCTIONS.md)
+- [AI Development Roles](roles/agent-roles.md)
+- [Quality Gates](rules/quality-gates.md)
+- [Reusable Principles](principles/README.md)
+- [Steal This: Five Practices to Copy First](principles/steal-this.md)
 
 ### Copy-ready prompts and templates
 
-- [Core Prompts](prompts/core-prompts.md) — short Builder, Reviewer, Steward, issue-drafting, bug-investigation, audit, and mobile-handoff prompts.
-- [Issue Template](templates/issue-template.md) — a reusable structure for bounded, testable work.
-- [Pull Request Template](templates/pull-request-template.md) — implementation evidence, documentation checks, failure behavior, and independent grading.
+- [Core Prompts](prompts/core-prompts.md)
+- [Issue Template](templates/issue-template.md)
+- [Pull Request Template](templates/pull-request-template.md)
 
-The prompts are intentionally short. Stable rules belong in version-controlled repository files; prompts should identify the current role and assignment.
+The prompts now reflect the real workflow: `Document this.`, `Build #563.`, or `Review PR #571.` Stable rules belong in version-controlled repository files; prompts identify the current assignment.
 
 ## The recurring format
 
@@ -57,20 +70,9 @@ Each lesson generally follows the same structure:
 4. **How it helped** — the practical impact.
 5. **Reusable takeaway** — what another builder or organization can apply.
 
-This framing is intentional. These practices were not invented as a polished methodology. They emerged from building and operating a real production product.
-
 ## Mobile-first development
 
-One unexpected result is that I can now manage nearly the full development lifecycle from an iPhone:
-
-- define and refine issues;
-- make product and architecture decisions;
-- direct AI implementation;
-- review pull requests;
-- evaluate tests and CI;
-- document decisions;
-- request revisions;
-- merge completed work.
+One unexpected result is that I can now manage nearly the full development lifecycle from an iPhone: defining issues, making architecture decisions, directing implementation, reviewing pull requests, evaluating tests and CI, documenting decisions, requesting revisions, and merging completed work.
 
 In one recent week, I worked through roughly 30 pull requests primarily from my phone.
 
@@ -80,17 +82,8 @@ The result was not merely a better phone workflow. It was a more cloud-based, do
 
 ## Who this is for
 
-This repository may be useful to:
-
-- non-programmers beginning to build with AI;
-- product managers and founders creating software products;
-- publishers exploring AI-enabled product development;
-- experienced developers evaluating AI-native workflows;
-- organizations trying to preserve quality while increasing development speed;
-- anyone moving from experimental vibe coding toward dependable production software.
+This repository may be useful to non-programmers building with AI, product managers and founders, publishers exploring AI-enabled development, experienced developers evaluating AI-native workflows, and organizations trying to increase development speed without abandoning quality.
 
 ## Current status
 
-This is a living collection. The initial pages are working drafts extracted from real Fido development experiences. They will be refined, expanded, and supplemented with practical tools, examples, and checklists over time.
-
-The earlier consolidated notes remain available in [Lessons Learned](lessons-learned.md).
+This is a living collection of working drafts extracted from real Fido development experiences. The next step is to add concrete production examples showing the evolution of pull requests, issues, templates, tests, and repository instructions over time.
