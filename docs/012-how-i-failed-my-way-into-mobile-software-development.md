@@ -91,6 +91,8 @@ The same changes that made mobile development possible also made the project eas
 
 Mobile was the forcing function. Better software-development discipline was the result.
 
+The system-level lesson behind this story is documented separately in [The Repository Replaced My Laptop](006-the-repository-replaced-my-laptop.md).
+
 ## Reusable takeaway
 
 **I did not set out to invent a mobile-first development methodology. I kept removing the things that prevented me from working when and where ideas occurred.**
