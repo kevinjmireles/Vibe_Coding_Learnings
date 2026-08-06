@@ -2,65 +2,44 @@
 
 ## Failure pattern
 
-When I worked with Claude and Cursor on a laptop, the work did not automatically show up when I moved to my phone. When I made progress from mobile, the laptop repository could be behind or different.
+Work was split across a laptop, phone, local repository, AI conversations, and several tools. Progress made in one place was not always visible in another. Switching devices meant reconstructing context, checking which version was current, and manually moving long responses between systems.
 
-Switching devices created a second job: figuring out which version was current, reconstructing what had happened, and moving plans or results between tools.
-
-Claude mobile added another source of friction: there was no convenient way to copy an entire long response. Moving a plan, review, or implementation summary often meant awkward selection and repeated copy-and-paste.
-
-There was also a practical life constraint. I have a full-time job, a relationship I want to keep, and a habit of waking up in the middle of the night with some of my best ideas. Opening a laptop at 2:00 or 3:00 in the morning meant getting out of bed, fully waking myself up, and potentially waking up my wife.
-
-I kept asking how I could capture the idea, turn it into useful work, and move the project forward from my phone without starting a traditional desktop-development session.
+Claude mobile made that friction especially obvious because copying an entire long response was difficult. Local development also meant that the laptop could contain important state that was unavailable from the phone.
 
 ## Why it happened
 
-The workflow was still organized around a local computer:
+The workflow was organized around a device rather than a shared source of truth:
 
 - the local repository was treated as the real workspace;
-- important context lived in application-specific conversations;
-- handoffs depended on copying long blocks of text;
-- device synchronization was assumed rather than designed;
-- progress made in one environment was not automatically visible in another; and
-- many tasks implicitly assumed comfort with a terminal and local development environment.
+- important decisions lived in application-specific conversations;
+- handoffs depended on copying and pasting;
+- progress in one environment was not automatically available in another; and
+- routine terminal work created an additional barrier for a non-programmer.
 
-I still do not know a lick of code. I can still get confused when someone tells me to run `pnpm`, restart a server, or execute another terminal command. I was not trying to become a terminal expert. I was trying to build a useful product.
-
-There was no brilliant cloud strategy. I was simply frustrated by repeatedly losing continuity and by a workflow that did not fit the hours or devices I actually had available.
+There was no brilliant cloud strategy. The existing workflow was simply too frustrating to keep using.
 
 ## System or process introduced
 
-The source of truth moved into cloud systems that were available from every device:
+GitHub became the authoritative workspace:
 
-- GitHub issues held requirements and acceptance criteria;
-- branches and pull requests held current implementation state;
-- repository documents held architecture, instructions, and decisions;
-- CI held independent validation results;
-- review comments held actionable feedback and resolution history.
+- issues hold requirements and acceptance criteria;
+- branches and pull requests hold implementation state;
+- repository documents hold architecture, instructions, and decisions;
+- review comments hold feedback and resolution history; and
+- CI holds independent validation results.
 
-AI was increasingly instructed to document its work directly in GitHub rather than returning large blocks that I had to transfer manually.
-
-The workflow became cloud-first not because every activity happens in a browser, but because no single device contains the only authoritative copy of the work.
-
-Once the work moved into GitHub and cloud services, I rarely needed the terminal. That was another major reason the workflow became both cloud-first and mobile-first.
+AI agents increasingly document their work directly in GitHub instead of returning large blocks that must be transported manually.
 
 ## How it helped
 
-I could begin on a phone, continue on a laptop, switch models, or open a new conversation without manually rebuilding the project state.
+No single device contains the only authoritative copy of the work. I can begin from a phone, continue elsewhere, change AI models, or open a new conversation without rebuilding the project state from memory.
 
-I could also act on an idea in the middle of the night without getting out of bed, opening a laptop, or waking up my wife. That sounds like a small convenience, but it made the workflow fit around a full-time job and a real life instead of requiring uninterrupted desktop-development time.
+The terminal also became largely optional for my day-to-day role. I can direct work, review changes, inspect tests and CI, request revisions, and merge from the cloud rather than maintaining a local development environment I do not understand well.
 
-Documentation improved because the easiest handoff became the durable one. Instead of copying a long explanation from one chat to another, the Builder updated the issue, pull request, or canonical document where the next participant could read it.
-
-This reduced synchronization mistakes and made the development process more resilient.
-
-## Unexpected benefit
-
-The frustration exposed weaknesses that would have affected a larger team too. A process that depends on one laptop, one conversation, one terminal session, or one person's working memory is difficult to scale even if nobody uses a phone.
-
-Designing for device independence forced clearer ownership, better handoffs, and more explicit status.
+The full personal story—full-time job, middle-of-the-night ideas, not wanting to wake my wife, and accidentally making an iPhone my primary development workstation—is documented in [How I Failed My Way into Mobile Software Development](012-how-i-failed-my-way-into-mobile-software-development.md).
 
 ## Reusable takeaway
 
-**Cloud-first and mobile-first were not brilliant strategies. They were the eventual solution to synchronization problems, terrible copy-and-paste workflows, limited time, and my desire not to get out of bed and wake up my wife.**
+**Cloud-first was not a strategy. It was an escape from synchronization, copy-and-paste, and local-environment friction.**
 
-Make authoritative work visible from any device, and have AI write durable handoffs directly into the shared system rather than making humans transport them.
+Make authoritative work visible from any device. Have AI write durable handoffs directly into the shared system rather than making people carry context between tools.
