@@ -41,6 +41,7 @@ For the five practices with the fastest payoff, see [Steal This](principles/stea
 11. [Every Manual Step Eventually Belongs in GitHub](docs/011-every-manual-step-eventually-belongs-in-github.md)
 12. [How I Failed My Way into Mobile Software Development](docs/012-how-i-failed-my-way-into-mobile-software-development.md)
 13. [Build a Team, Even If You Are the Only Person](docs/013-build-a-team-even-if-you-are-the-only-person.md)
+14. [GitHub Actions Turn Rules into Guardrails](docs/014-github-actions-turn-rules-into-guardrails.md)
 
 A concise linked index is also available in [Lessons Learned at a Glance](lessons-learned.md).
 
