@@ -104,17 +104,28 @@ Verify:
 
 Important requirements should not depend solely on someone remembering them.
 
-Use GitHub to enforce the workflow where possible:
+GitHub provides several layers that can turn written expectations into enforceable workflow:
 
-- PR templates require key testing, documentation, and review information;
-- automated PR-quality checks verify required fields or checklist state;
-- CI runs tests, linting, builds, and other objective validation;
-- branch protection requires designated status checks to pass;
-- unresolved required checks prevent merge;
-- review requirements can require approval before merge;
-- merge permissions remain with the authorized human.
+- **Issue and PR templates** make required structure visible.
+- **GitHub Actions** can inspect issue or PR content and fail when required sections, fields, labels, evidence, or metadata are missing.
+- **CI workflows** run objective validation such as tests, type checking, linting, builds, migrations, or consistency checks.
+- **Required status checks and branch protection** prevent merge while designated checks are failing or incomplete.
+- **Review requirements** can require approval before merge.
+- **Merge permissions** keep the final decision with the authorized human.
 
-A checklist reminds. A required check prevents an incomplete merge.
+For issues, Actions can verify that an implementation-ready issue has the required problem statement, acceptance criteria, labels, or other project-specific fields before downstream work relies on it.
+
+For pull requests, Actions can verify that required evidence is present—for example testing, documentation impact, known limitations, Builder self-grade, or Reviewer fields—rather than merely trusting that the template was completed correctly.
+
+This creates a progression:
+
+**lesson → rule → template → automated check → required gate**
+
+A checklist reminds. An Action verifies. A required status check can stop an incomplete merge.
+
+Automation should enforce observable minimums, not pretend to replace judgment. A workflow can confirm that a documentation section exists; it cannot determine that the documentation is thoughtful or correct. Human and independent AI review still matter.
+
+See [GitHub Actions Turn Rules into Guardrails](../docs/014-github-actions-turn-rules-into-guardrails.md).
 
 ## 11. Merge gate
 
