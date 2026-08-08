@@ -15,5 +15,6 @@ This page is an index, not a second copy of the lessons. Each topic has one cano
 11. [Every Manual Step Eventually Belongs in GitHub](docs/011-every-manual-step-eventually-belongs-in-github.md) — repeated reminders should become templates, checks, or required workflow steps.
 12. [How I Failed My Way into Mobile Software Development](docs/012-how-i-failed-my-way-into-mobile-software-development.md) — practical life constraints and recurring frustration accidentally produced a mobile-first workflow.
 13. [Build a Team, Even If You Are the Only Person](docs/013-build-a-team-even-if-you-are-the-only-person.md) — one human can orchestrate multiple independent engineering functions without trusting any single person or AI to get everything right.
+14. [GitHub Actions Turn Rules into Guardrails](docs/014-github-actions-turn-rules-into-guardrails.md) — convert important process rules from reminders into automated checks and, where appropriate, merge-blocking gates.
 
 For readers looking for the smallest useful starting point, see [Steal This: Five Practices to Copy First](principles/steal-this.md).
