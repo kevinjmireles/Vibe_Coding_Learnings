@@ -16,5 +16,7 @@ This page is an index, not a second copy of the lessons. Each topic has one cano
 12. [How I Failed My Way into Mobile Software Development](docs/012-how-i-failed-my-way-into-mobile-software-development.md) — practical life constraints and recurring frustration accidentally produced a mobile-first workflow.
 13. [Build a Team, Even If You Are the Only Person](docs/013-build-a-team-even-if-you-are-the-only-person.md) — one human can orchestrate multiple independent engineering functions without trusting any single person or AI to get everything right.
 14. [GitHub Actions Turn Rules into Guardrails](docs/014-github-actions-turn-rules-into-guardrails.md) — convert important process rules from reminders into automated checks and, where appropriate, merge-blocking gates.
+15. [Build Production Test Tools, Not Just Tests](docs/015-build-production-test-tools-not-just-tests.md) — reusable diagnostic tools let you exercise many datasets, geographies, locales, and production paths instead of rebuilding the test process each time.
+16. [Change It Once](docs/016-change-it-once.md) — centralize truly shared behavior so one fix can improve many outputs without creating drift.
 
 For readers looking for the smallest useful starting point, see [Steal This: Five Practices to Copy First](principles/steal-this.md).
