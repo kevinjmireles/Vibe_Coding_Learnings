@@ -25,4 +25,6 @@ Each study asks:
 
 The goal is not to claim a perfect methodology. The goal is to show the evidence of improvement: early issues, early pull requests, later pull requests, changing templates, growing test coverage, and the development rules added after recurring failures.
 
-Future updates should link representative artifacts such as PR #1, #100, #200, #300, and later milestones, along with early and current issue templates.
+Representative production pull requests are archived in [evolution/sample-prs](sample-prs/README.md).
+
+
