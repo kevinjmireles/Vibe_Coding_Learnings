@@ -44,6 +44,8 @@ For the five practices with the fastest payoff, see [Steal This](principles/stea
 14. [GitHub Actions Turn Rules into Guardrails](docs/014-github-actions-turn-rules-into-guardrails.md)
 15. [Build Production Test Tools, Not Just Tests](docs/015-build-production-test-tools-not-just-tests.md)
 16. [Change It Once](docs/016-change-it-once.md)
+17. [If It Matters, Give It a Metric](docs/017-if-it-matters-give-it-a-metric.md)
+18. [AI Will Not Invent Your Best Practices for You](docs/018-ai-will-not-invent-your-best-practices-for-you.md)
 
 A concise linked index is also available in [Lessons Learned at a Glance](lessons-learned.md).
 
@@ -70,6 +72,7 @@ Representative production pull requests are archived in [evolution/sample-prs](e
 - [Quality Gates](rules/quality-gates.md)
 - [Reusable Principles](principles/README.md)
 - [Steal This: Five Practices to Copy First](principles/steal-this.md)
+- [Missing Best Practices Audit](audits/missing-best-practices.md)
 
 ### Copy-ready prompts and templates
 
