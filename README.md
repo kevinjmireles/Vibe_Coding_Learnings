@@ -18,13 +18,31 @@ This repository documents that evolution.
 
 Coding agents can be brilliant individual contributors. But brilliance is not a development process.
 
-Left largely unmanaged, agents can make locally reasonable decisions, duplicate existing systems, miss architectural implications, apply inconsistent standards, and produce technically functional solutions that are wrong for production.
+One reason is what I have come to think of as **Builderitis**: AI loves to build. Give it a problem and it will happily write code, whether it is creating something genuinely new, recreating something already inside your repository, or hand-rolling something a mature external library solved years ago. Building is its superpower, so building naturally becomes the answer unless the system around it forces other questions first.
+
+That does not make the AI bad at its job. Quite the opposite. A locally reasonable implementation can be technically excellent and still be the wrong thing to build.
+
+Left largely unmanaged, agents can make locally reasonable decisions, duplicate existing systems, miss architectural implications, apply inconsistent standards, introduce unnecessary code or dependencies, and produce technically functional solutions that are wrong for production.
 
 The central lesson from building Fido has been that **AI does not eliminate the need for management. It increases the value of good management.**
 
 The goal of this project is to capture the layer that coding tools largely leave to you: goals, architecture, best practices, roles, repository memory, bounded assignments, independent review, testing, quality gates, evidence, and organizational learning.
 
 You do not necessarily need to know how to write the code. But somebody—or some system—must define and continually improve **what good looks like**.
+
+> **AI is a brilliant Builder. That's precisely why it needs management.**
+
+The management layer introduces the questions that pure implementation does not reliably ask on its own:
+
+- Should we build this at all?
+- Does it already exist inside our system?
+- Has someone already solved it well outside our system?
+- Where should this behavior live?
+- Does it really need to happen at runtime?
+- What happens at 10× or 100× scale?
+- How will we test and observe it?
+- Who independently reviews the decision?
+- How do we make sure the next agent inherits what we learn?
 
 > **The difference between a collection of brilliant AI agents and an effective engineering team is the system that manages them.**
 
@@ -37,7 +55,7 @@ The system is not one magic prompt. It is a set of components that reinforce one
 3. **The repository provides durable memory.** Requirements, architecture, decisions, lessons, and rules should survive individual chats, agents, devices, and sessions. The repository remembers more than the AI.
 4. **Issues turn goals into bounded assignments.** Instead of giant conversational prompts, a well-structured issue defines the problem, context, constraints, acceptance criteria, and evidence expected. The working prompt can become as short as `Build #563.`
 5. **Specialized roles create separation of duties.** Builder, Reviewer, and Architecture Steward agents have different responsibilities. The agent that created the work should not be the only agent deciding whether the work is good enough.
-6. **Independent review challenges locally reasonable decisions.** Review is not just syntax checking. It asks whether the implementation duplicates something, violates architecture, introduces avoidable dependencies, misses edge cases, or solves the wrong problem.
+6. **Independent review challenges locally reasonable decisions.** Review is not just syntax checking. It asks whether the implementation duplicates something, violates architecture, introduces avoidable dependencies, misses edge cases, hand-rolls an already-solved mechanism, or solves the wrong problem.
 7. **Tests and production test tools provide evidence.** Unit and regression tests catch known failure modes; reusable production-oriented tools exercise multiple datasets, geographies, locales, channels, and real system paths.
 8. **GitHub Actions and required gates enforce the floor.** Templates remind. Actions verify. Required checks can block. Human judgment still decides whether the result is actually good.
 9. **Shared components reduce future work and drift.** Behavior that is genuinely the same should have one canonical owner. Otherwise technical debt multiplies across every dataset, geography, language, channel, and future change.
