@@ -18,5 +18,9 @@ This page is an index, not a second copy of the lessons. Each topic has one cano
 14. [GitHub Actions Turn Rules into Guardrails](docs/014-github-actions-turn-rules-into-guardrails.md) — convert important process rules from reminders into automated checks and, where appropriate, merge-blocking gates.
 15. [Build Production Test Tools, Not Just Tests](docs/015-build-production-test-tools-not-just-tests.md) — reusable diagnostic tools let you exercise many datasets, geographies, locales, and production paths instead of rebuilding the test process each time.
 16. [Change It Once](docs/016-change-it-once.md) — centralize truly shared behavior so one fix can improve many outputs without creating drift.
+17. [If It Matters, Give It a Metric](docs/017-if-it-matters-give-it-a-metric.md) — vague goals get lost in fast-moving AI work; observable targets, including zero, don't.
+18. [AI Will Not Invent Your Best Practices for You](docs/018-ai-will-not-invent-your-best-practices-for-you.md) — a technically valid implementation can still be the wrong architecture; the repository has to teach the better pattern explicitly.
+19. [You Don't Add Technical Debt, You Multiply It](docs/019-you-dont-add-technical-debt-you-multiply-it.md) — duplication's maintenance and drift cost grows with every copy, not by one item at a time.
+20. [Check Before You Hand-Roll It](docs/020-check-before-you-hand-roll-it.md) — before writing non-trivial mechanism code, check whether a well-maintained library already solved it.
 
 For readers looking for the smallest useful starting point, see [Steal This: Five Practices to Copy First](principles/steal-this.md).
