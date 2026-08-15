@@ -1,29 +1,93 @@
 # 020 — Check Before You Hand-Roll It
 
-## The problem
+## AI suffers from Builderitis
 
-`CountyBoundaryChoropleth.tsx` hand-rolled its own geographic projection and viewport-fitting math from scratch — `lonLatToWebMercator`, `makeProjector`, `computeViewBox` — to turn Census county boundary coordinates into an SVG map. It worked. A later fix (PR #652) had to patch a real bug in it: mobile letterboxing, where a narrow state like Delaware filled only ~39% of the available map width because the hand-rolled fitting logic used a fixed-aspect-ratio box instead of fitting each state's actual geometry.
+AI loves to build.
 
-The fix worked. The question that mattered came after the fix, not during it: *"seems like a lot of work for something that should already be solved for."*
+Give it a problem and it will happily start writing code. It does not particularly care whether it is building something genuinely new, recreating something that already exists elsewhere in your own repository, or reinventing a wheel that thousands of developers solved years ago.
 
-It was right. `d3-geo` — a small, extremely well-established open-source library — has functions (`geoFitExtent`, `geoFitSize`) that solve exactly this problem: fitting arbitrary geographic geometry into a target viewport. Three custom functions and a real bug were built to reinvent something a widely-used library already does correctly.
+Unless you explicitly tell it to check first, **it will often just build.**
+
+I discovered this after spending two or three days working through Fido's new maps. We were building maps, fixing maps, checking maps on different devices, fixing them again, and I was manually looking at map after map trying to figure out whether they rendered correctly.
+
+Eventually I found myself wondering:
+
+> **Why the hell am I spending this much time checking something that must have been solved before?**
+
+So I asked.
+
+And, sure enough, it had.
+
+Our `CountyBoundaryChoropleth.tsx` component contained custom geographic projection and viewport-fitting math: `lonLatToWebMercator`, `makeProjector`, and `computeViewBox`.
+
+It worked — until it didn't.
+
+PR #652 had to fix a real mobile letterboxing problem. A narrow state such as Delaware could occupy only about 39% of the available map width because our custom fitting logic used a fixed-aspect-ratio box instead of fitting the viewport to the state's actual geometry.
+
+Then we discovered that `d3-geo`, a small and extremely well-established open-source library, already provides `geoFitExtent` and `geoFitSize` for essentially this exact problem.
+
+We had spent days building, testing, debugging, and reviewing custom code for a problem we probably never needed to solve ourselves.
+
+## Builderitis isn't stupidity
+
+This wasn't because the AI did a bad job.
+
+That's what makes the lesson important.
+
+The AI did exactly what we asked it to do: **build a map.**
+
+Writing projection math was a perfectly coherent way to accomplish the assignment. Modern coding agents are so capable that writing a few more functions barely feels expensive while they're doing it.
+
+The expense comes later.
+
+Now we own the code. We have to test it. Debug it. Review it. Make it work on Delaware and Texas, desktop and mobile, and whatever comes next.
+
+> **AI makes creating new code extraordinarily cheap. It does not make owning unnecessary code free.**
+
+And that's Builderitis.
+
+## There are two kinds
+
+I had already encountered one form of Builderitis.
+
+**Internal Builderitis:** AI rebuilds something that already exists inside your own system.
+
+That's what [AI Defaults to Duplication](003-ai-defaults-to-duplication.md) is about.
+
+This map experience exposed another.
+
+**External Builderitis:** AI builds something from scratch that a mature external library already solves.
+
+The remedy is similar in both cases:
+
+> **Check before you build.**
+
+Before creating something non-trivial:
+
+1. **Look inward:** Does our repository already have something we should reuse or extend?
+2. **Look outward:** Is there a mature, appropriately sized, well-maintained library that already solves this?
+3. **Then decide:** Reuse, adopt, or hand-roll deliberately — and document why.
 
 ## Why this happens
 
-Same root cause as duplication generally (see [003](003-ai-defaults-to-duplication.md)), but a different flavor of it. That lesson is about rebuilding something that already exists *inside your own codebase*. This is about rebuilding something that already exists *outside it*, in a package you could just install.
+AI agents are especially prone to Builderitis because writing code is easy for them.
 
-AI agents are especially prone to this version of the problem because writing the code is easy. Given "render county boundaries as an SVG map," hand-rolling projection math is a completely reasonable, locally coherent path — it produces working, testable code that does what was asked. Nothing about the task description flags that a battle-tested library already exists for exactly this sub-problem. The AI has no innate sense that "this specific kind of math has a canonical open-source solution" unless told to check.
+Given "render county boundaries as an SVG map," hand-rolling projection math is a completely reasonable, locally coherent path. It produces working, testable code that does what was asked. Nothing about that task necessarily forces the agent to ask whether a battle-tested library already exists for the sub-problem.
+
+This is a different flavor of the duplication problem in [Lesson 003](003-ai-defaults-to-duplication.md). That lesson is about rebuilding something that already exists *inside your own codebase*. This lesson is about rebuilding something that already exists *outside it*.
 
 ## The system introduced
 
-Rather than fix just this one file, the fix became a standing rule, applied symmetrically to both roles:
+Rather than fix just this one file, the lesson became a standing rule, applied symmetrically to both roles:
 
 - **Builder-facing:** before starting non-trivial hand-rolled work — geographic/geometric math, date/timezone handling, parsing/formatting, scheduling, and similar already-solved mechanisms — check whether a small, well-maintained package already solves it.
-- **Reviewer-facing:** the same question, asked again independently at sign-off, regardless of whether the Builder already asked it.
+- **Reviewer-facing:** ask the same question again independently at sign-off, regardless of whether the Builder already asked it.
 
-The rule does not mandate an outcome. It mandates a documented decision: adopted, considered-and-declined, or not applicable. A dependency is not automatically better than hand-rolled code — a two-line date comparison doesn't need a package, and every dependency carries its own footprint, maintenance surface, and security exposure. The rule's job is to make the comparison happen on purpose, not to pick a side.
+The rule does not mandate an outcome. It mandates a documented decision: adopted, considered-and-declined, or not applicable.
 
-The actual library-adoption decision (whether to adopt `d3-geo`) was deliberately *not* made in the same change. It was folded into the larger issue already rebuilding the map-geometry pipeline end to end — whoever touches that code will decide server-side vs. client-side rendering at the same time, and that's the same decision, better made once than twice.
+A dependency is not automatically better than hand-rolled code. A two-line date comparison does not need a package, and every dependency carries its own footprint, maintenance surface, and security exposure. The rule's job is to make the comparison happen on purpose, not to pick a side.
+
+The actual library-adoption decision — whether to adopt `d3-geo` — was deliberately *not* made in the same change. It was folded into the larger issue already rebuilding the map-geometry pipeline end to end. Whoever touches that code will decide server-side versus client-side rendering at the same time. That is the same architectural decision, better made once than twice.
 
 ## Distinct from a nearby lesson
 
