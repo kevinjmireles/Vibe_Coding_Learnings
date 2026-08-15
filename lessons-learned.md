@@ -22,5 +22,6 @@ This page is an index, not a second copy of the lessons. Each topic has one cano
 18. [AI Will Not Invent Your Best Practices for You](docs/018-ai-will-not-invent-your-best-practices-for-you.md) — a technically valid implementation can still be the wrong architecture; the repository has to teach the better pattern explicitly.
 19. [You Don't Add Technical Debt, You Multiply It](docs/019-you-dont-add-technical-debt-you-multiply-it.md) — duplication's maintenance and drift cost grows with every copy, not by one item at a time.
 20. [Check Before You Hand-Roll It](docs/020-check-before-you-hand-roll-it.md) — before writing non-trivial mechanism code, check whether a well-maintained library already solved it.
+21. [Is the Juice Worth the Squeeze?](docs/021-is-the-juice-worth-the-squeeze.md) — optimize the product as a whole, not one dimension in isolation; consciously weigh evidence, reversibility, future pain, and opportunity cost before adding complexity.
 
 For readers looking for the smallest useful starting point, see [Steal This: Five Practices to Copy First](principles/steal-this.md).
