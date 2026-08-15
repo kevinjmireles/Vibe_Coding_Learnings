@@ -107,6 +107,7 @@ For the five practices with the fastest payoff, see [Steal This](principles/stea
 17. [If It Matters, Give It a Metric](docs/017-if-it-matters-give-it-a-metric.md)
 18. [AI Will Not Invent Your Best Practices for You](docs/018-ai-will-not-invent-your-best-practices-for-you.md)
 19. [You Don’t Add Technical Debt, You Multiply It](docs/019-you-dont-add-technical-debt-you-multiply-it.md)
+20. [Check Before You Hand-Roll It](docs/020-check-before-you-hand-roll-it.md)
 
 A concise linked index is also available in [Lessons Learned at a Glance](lessons-learned.md).
 
