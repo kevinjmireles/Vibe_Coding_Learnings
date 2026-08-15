@@ -14,6 +14,66 @@ This repository documents that evolution.
 
 > **Vibe gets you started. Systems get you to production.**
 
+## The thesis: AI needs management
+
+Coding agents can be brilliant individual contributors. But brilliance is not a development process.
+
+Left largely unmanaged, agents can make locally reasonable decisions, duplicate existing systems, miss architectural implications, apply inconsistent standards, and produce technically functional solutions that are wrong for production.
+
+The central lesson from building Fido has been that **AI does not eliminate the need for management. It increases the value of good management.**
+
+The goal of this project is to capture the layer that coding tools largely leave to you: goals, architecture, best practices, roles, repository memory, bounded assignments, independent review, testing, quality gates, evidence, and organizational learning.
+
+You do not necessarily need to know how to write the code. But somebody—or some system—must define and continually improve **what good looks like**.
+
+> **The difference between a collection of brilliant AI agents and an effective engineering team is the system that manages them.**
+
+### How the pieces work together
+
+The system is not one magic prompt. It is a set of components that reinforce one another:
+
+1. **Goals and metrics define the outcome.** Clear targets tell agents what success means. When the real target is zero—zero unnecessary wait, zero avoidable runtime dependencies, zero known critical regressions—say zero rather than “minimize.”
+2. **Architectural principles and best practices define what good looks like.** AI does not automatically arrive with the right production architecture for your product. Important practices need to be discovered, challenged, documented, and made explicit.
+3. **The repository provides durable memory.** Requirements, architecture, decisions, lessons, and rules should survive individual chats, agents, devices, and sessions. The repository remembers more than the AI.
+4. **Issues turn goals into bounded assignments.** Instead of giant conversational prompts, a well-structured issue defines the problem, context, constraints, acceptance criteria, and evidence expected. The working prompt can become as short as `Build #563.`
+5. **Specialized roles create separation of duties.** Builder, Reviewer, and Architecture Steward agents have different responsibilities. The agent that created the work should not be the only agent deciding whether the work is good enough.
+6. **Independent review challenges locally reasonable decisions.** Review is not just syntax checking. It asks whether the implementation duplicates something, violates architecture, introduces avoidable dependencies, misses edge cases, or solves the wrong problem.
+7. **Tests and production test tools provide evidence.** Unit and regression tests catch known failure modes; reusable production-oriented tools exercise multiple datasets, geographies, locales, channels, and real system paths.
+8. **GitHub Actions and required gates enforce the floor.** Templates remind. Actions verify. Required checks can block. Human judgment still decides whether the result is actually good.
+9. **Shared components reduce future work and drift.** Behavior that is genuinely the same should have one canonical owner. Otherwise technical debt multiplies across every dataset, geography, language, channel, and future change.
+10. **Failures improve the system.** A recurring problem should not merely be fixed once. The durable path is **Idea → Issue → Review → Implement → Observe → Learn → Document → Reuse**. When appropriate, the lesson becomes a rule, test, quality gate, shared primitive, or template that future agents inherit.
+
+The result is a feedback loop:
+
+```text
+Raw AI capability
+        ↓
+Goals + metrics
+        ↓
+Architecture + best practices
+        ↓
+Repository memory
+        ↓
+Bounded issues
+        ↓
+Builder / Reviewer / Steward roles
+        ↓
+Tests + production evidence
+        ↓
+GitHub Actions + quality gates
+        ↓
+Human judgment
+        ↓
+Lessons fed back into the system
+        ↺
+```
+
+A mistake therefore has the potential to become organizational learning rather than merely another bug fix:
+
+> **Failure → lesson → rule → test or gate → future agents inherit the learning.**
+
+That is the larger purpose of the practices in this repository: turn capable but uneven AI individual contributors into a more disciplined, evidence-driven development team with increasingly predictable outcomes.
+
 ## New to this? Start here
 
 You do not need to understand CI, branch protection, or software architecture to use the core lessons.
@@ -46,6 +106,7 @@ For the five practices with the fastest payoff, see [Steal This](principles/stea
 16. [Change It Once](docs/016-change-it-once.md)
 17. [If It Matters, Give It a Metric](docs/017-if-it-matters-give-it-a-metric.md)
 18. [AI Will Not Invent Your Best Practices for You](docs/018-ai-will-not-invent-your-best-practices-for-you.md)
+19. [You Don’t Add Technical Debt, You Multiply It](docs/019-you-dont-add-technical-debt-you-multiply-it.md)
 
 A concise linked index is also available in [Lessons Learned at a Glance](lessons-learned.md).
 
