@@ -4,7 +4,7 @@ These are the short ideas that emerged repeatedly while building Fido. Each prin
 
 - **Vibe gets you started. Systems get you to production.**
 - **The development process is itself a product.** Design, test, maintain, and improve the system that produces the software.
-- **Deliver the required quality at the lowest total lifecycle cost.** Minimize development, compute, queries, APIs, AI/model usage, maintenance, rework, migration, and opportunity cost without dropping below the product-quality bar.
+- **Deliver the required product quality at the lowest total lifecycle cost.** Minimize development, compute, queries, APIs, AI/model usage, maintenance, rework, migration, and opportunity cost without dropping below the product-quality bar.
 - **Avoid → Reuse → Do once → Batch/cache/precompute → Right-size → Optimize.** Use this as an economic instinct, not a rigid checklist.
 - **The best prompt is a GitHub issue.**
 - **The repository should remember more than the AI.**
