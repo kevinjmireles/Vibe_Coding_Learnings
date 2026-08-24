@@ -32,6 +32,32 @@ You do not necessarily need to know how to write the code. But somebody—or som
 
 > **AI is a brilliant Builder. That's precisely why it needs management.**
 
+### Process as Product
+
+I increasingly think the development process should be treated as a product in its own right.
+
+It has users: Builders, Reviewers, Architecture Stewards, and the human product owner. It has requirements, architecture, defects, metrics, and releases. When something goes wrong, the job is not only to fix the software; it is to decide whether the system that produced the software should learn from the failure.
+
+That creates two products that improve together:
+
+> **The software product.**
+>
+> **And the system that produces the software product.**
+
+The economic objective for the second is simple:
+
+> **Deliver the required product quality at the lowest total lifecycle cost.**
+
+That means minimizing unnecessary development, compute, queries, API calls, AI/model usage, maintenance, rework, migration, and opportunity cost without dropping below the required bar for correctness, security, reliability, accessibility, privacy, maintainability, and user experience.
+
+A useful instinct is:
+
+> **Avoid → Reuse → Do once → Batch/cache/precompute → Right-size → Optimize**
+
+The real compounding asset is therefore not just the AI-generated code. It is the accumulated rules, architecture, tests, shared components, evidence, and organizational knowledge that make every future AI agent better managed than the one before it.
+
+See [Process as Product](docs/023-process-as-product.md) for the full lesson.
+
 The management layer introduces the questions that pure implementation does not reliably ask on its own:
 
 - Should we build this at all?
@@ -127,6 +153,8 @@ For the five practices with the fastest payoff, see [Steal This](principles/stea
 19. [You Don’t Add Technical Debt, You Multiply It](docs/019-you-dont-add-technical-debt-you-multiply-it.md)
 20. [Check Before You Hand-Roll It](docs/020-check-before-you-hand-roll-it.md)
 21. [Is the Juice Worth the Squeeze?](docs/021-is-the-juice-worth-the-squeeze.md)
+22. [Review the Render, Not Just the Code](docs/022-review-the-render-not-just-the-code.md)
+23. [Process as Product](docs/023-process-as-product.md)
 
 A concise linked index is also available in [Lessons Learned at a Glance](lessons-learned.md).
 
