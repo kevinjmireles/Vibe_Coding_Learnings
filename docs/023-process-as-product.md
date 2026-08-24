@@ -89,6 +89,8 @@ It is not a rigid checklist. It is an economic instinct.
 
 Does the work need to happen at all?
 
+**Avoid means eliminate unnecessary recurring work, not skip required product functionality.**
+
 Do not optimize unnecessary work. Remove it.
 
 ### Reuse
@@ -271,7 +273,7 @@ Treat the development process as a product you deliberately design, test, mainta
 
 Then give that product an economic objective:
 
-> **Deliver the required quality at the lowest total lifecycle cost.**
+> **Deliver the required product quality at the lowest total lifecycle cost.**
 
 When something goes wrong, fix the immediate problem — but also ask whether the process should learn from it.
 
