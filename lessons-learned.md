@@ -24,5 +24,6 @@ This page is an index, not a second copy of the lessons. Each topic has one cano
 20. [Check Before You Hand-Roll It](docs/020-check-before-you-hand-roll-it.md) — before writing non-trivial mechanism code, check whether a well-maintained library already solved it.
 21. [Is the Juice Worth the Squeeze?](docs/021-is-the-juice-worth-the-squeeze.md) — optimize the product as a whole, not one dimension in isolation; consciously weigh evidence, reversibility, future pain, and opportunity cost before adding complexity.
 22. [Review the Render, Not Just the Code](docs/022-review-the-render-not-just-the-code.md) — green tests can still produce a visibly broken page; capture the real deployed UI in CI and make rendered evidence part of pull-request review.
+23. [Process as Product](docs/023-process-as-product.md) — treat the development system as a product that compounds learning; deliver the required quality at the lowest total lifecycle cost and make future agents inherit what each failure teaches.
 
 For readers looking for the smallest useful starting point, see [Steal This: Five Practices to Copy First](principles/steal-this.md).
