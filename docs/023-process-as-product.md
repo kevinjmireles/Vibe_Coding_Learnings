@@ -8,7 +8,11 @@ For years, I have believed that technical debt does not merely accumulate. It mu
 
 A shortcut gets copied. Other features depend on it. Tests and processes grow around it. Workarounds appear. New developers assume it was intentional. Eventually one compromise becomes the foundation for several more.
 
-AI changes the speed of that process, not the underlying economics.
+Before Fido, I tried to make that cost visible through the [MVR Framework's Quick Win vs. Tech Debt Tradeoff Calculator](https://mvrframework.com/quick-win-tech-debt). The point was to translate an abstract engineering phrase like "technical debt" into a business question: what does this shortcut really cost once its downstream consequences are included?
+
+AI did not change that belief. It made it more urgent.
+
+> **AI changes the velocity of technical debt, not its economics.**
 
 It can create useful software extraordinarily quickly. It can also create duplicate systems, unnecessary runtime work, custom code for solved problems, and infrastructure for scale that may never arrive.
 
