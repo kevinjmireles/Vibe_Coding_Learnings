@@ -17,6 +17,17 @@ Who or what is affected, and why does it matter?
 
 Include screenshots, logs, examples, affected files, links, or reproduction steps when available.
 
+## Problem validation
+
+Required for anything larger than a bug fix. See [Do the Math Before You Build](../docs/024-do-the-math-before-you-build.md).
+
+- **Has it happened?** Incident, log, or report — or an explicit "not observed yet."
+- **Probability × impact:** how often at current scale, and how bad each time.
+- **Arithmetic:** current capacity / proposed capacity / required capacity, same units, side by side.
+- **Prior classification:** what the roadmap or architecture docs already decided about this capability, and whether its trigger has fired.
+- **Cheapest alternatives considered:** config-only, provider-native, and do-nothing — each priced and rejected with a reason.
+- **New failure surface introduced:** env vars, operational states, scheduled jobs, paid dependencies, triage paths.
+
 ## Existing systems to reuse
 
 Identify the closest existing component, helper, workflow, contract, document, or architecture. Explain whether it should be extended.

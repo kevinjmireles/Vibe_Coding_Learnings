@@ -12,6 +12,22 @@ Before implementation:
 - Is important information missing?
 - Is this one coherent change or several unrelated requests?
 
+### 1.1 Problem validation gate
+
+A clearly stated problem can still be rare, harmless, already mitigated, or unsolved by the proposed design. For any initiative larger than a bug fix, answer these **in writing, with numbers**:
+
+- **Has it actually happened?** Link the incident, log, or user report. If it has not happened yet, say so explicitly rather than leaving it implied.
+- **Probability × impact.** How often at current scale, and what is the blast radius when it occurs?
+- **Show the arithmetic.** Current capacity, proposed capacity, and required capacity — computed from real parameters, in the same units, side by side. If the proposal is slower or smaller than what it replaces, the design is wrong regardless of its elegance.
+- **What did the roadmap already say?** If an existing architecture or roadmap document already classified this capability as deferred with a trigger, state whether the trigger has fired. Overriding a prior deliberate deferral requires justifying the override, not just the work.
+- **What is the cheapest thing that would work?** Price at least one config-only, one provider-native, and one do-nothing option, and explain why each is insufficient.
+- **What new failure surface does this create?** New environment variables, operational states, triage paths, scheduled jobs, paid dependencies, and runbook pages are recurring costs paid by everyone who touches the system later.
+- **Where is the real probable breakage?** If this failure mode is unlikely, name the likely one. Redirection is often this gate's most valuable output.
+
+> Rigor about execution is not validation of purpose. A meticulous plan can still build the wrong thing.
+
+See [Do the Math Before You Build](../docs/024-do-the-math-before-you-build.md).
+
 ## 2. Reuse and duplication gate
 
 Before creating a new component, helper, workflow, table, document, or service:
