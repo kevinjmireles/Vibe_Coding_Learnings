@@ -2,6 +2,16 @@
 
 > **A rigorous plan for an unvalidated problem is still waste. Before building, size the problem — probability and impact — and prove with arithmetic that the proposed solution's real capacity intersects the real need. A correctly sized problem is not then done: without something structural forcing the founding number to travel forward, it can be built past within a single day of fast, careful, well-reviewed iteration.**
 
+## KISS. Quantify. Clarify.
+
+Everything in this lesson reduces to three words, in this order:
+
+- **Keep it simple.** Before building anything, find the cheapest thing that would work — config change, existing library feature, provider-native capability, a re-run instead of a rebuild — and require it to be priced and explicitly rejected, not silently skipped.
+- **Quantify.** State the problem, the trigger, and the target as real numbers, in business units, not parameters. Show today's capacity, the proposed capacity, and the required capacity side by side. If you can't put a number on it, you're not ready to build — you're ready to investigate.
+- **Clarify.** Make it cheap and normal to ask instead of guess. `clarify: <question>` is always a valid, low-friction answer — for the builder unsure what "done" means, and for the approver who doesn't want to rubber-stamp something they don't understand. The system should make asking easier than nodding along.
+
+Simple, quantified, and easy to question — in that order, because a simple thing is cheap to quantify, and a quantified thing is easy to ask a sharp question about. Skip straight to "clarify" on a complex, unquantified plan and the questions have nowhere to attach.
+
 We spent a significant amount of effort building a durable, crash-safe, lease-fenced, retry-capable email delivery queue.
 
 It worked. It was well-tested. It had migrations, real-PostgreSQL concurrency tests, an operator runbook, a fail-closed kill switch, an activation cutoff guard, and a carefully sequenced rollout plan with six phases and roughly twenty acceptance criteria.
@@ -249,3 +259,5 @@ If you cannot answer the first three with specifics, you are not ready to build.
 If you cannot answer the fourth, correctly stating the problem once was not enough — velocity, not neglect, is what carries a real requirement out of view, and only something structural, not memory or good intentions, carries it back.
 
 And when your own repository has already answered the question — go read it first.
+
+**KISS. Quantify. Clarify.** Every mechanism in this lesson — the cheapest-alternative check, the today→after line, the confidence tags, the `approve` / `clarify` / `not now` menu — is one of these three words made concrete. If a future fix to this process doesn't reduce to one of them, it's probably solving a different problem than the one this lesson is about.

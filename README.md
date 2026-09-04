@@ -155,7 +155,7 @@ For the five practices with the fastest payoff, see [Steal This](principles/stea
 21. [Is the Juice Worth the Squeeze?](docs/021-is-the-juice-worth-the-squeeze.md)
 22. [Review the Render, Not Just the Code](docs/022-review-the-render-not-just-the-code.md)
 23. [Process as Product](docs/023-process-as-product.md)
-24. [Do the Math Before You Build](docs/024-do-the-math-before-you-build.md)
+24. [Do the Math Before You Build](docs/024-do-the-math-before-you-build.md) — KISS. Quantify. Clarify.
 
 A concise linked index is also available in [Lessons Learned at a Glance](lessons-learned.md).
 
