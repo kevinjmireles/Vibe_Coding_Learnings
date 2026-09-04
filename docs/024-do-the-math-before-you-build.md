@@ -1,6 +1,6 @@
 # Do the Math Before You Build
 
-> **A rigorous plan for an unvalidated problem is still waste. Before building, size the problem — probability and impact — and prove with arithmetic that the proposed solution's real capacity intersects the real need.**
+> **A rigorous plan for an unvalidated problem is still waste. Before building, size the problem — probability and impact — and prove with arithmetic that the proposed solution's real capacity intersects the real need. A correctly sized problem is not then done: without something structural forcing the founding number to travel forward, it can be built past within a single day of fast, careful, well-reviewed iteration.**
 
 We spent a significant amount of effort building a durable, crash-safe, lease-fenced, retry-capable email delivery queue.
 
@@ -97,6 +97,59 @@ Continuous detection machinery for an annual, pre-announced, externally-schedule
 
 > **Match the mechanism's cadence to the phenomenon's cadence. Continuous monitoring of a phenomenon that changes annually is not thoroughness — it's cost with no marginal detection benefit.**
 
+## A correctly sized problem can still decay within a single day of rapid iteration
+
+Failure 1 and Failure 2 above describe a problem that was never sized. This is a different, more unsettling case: the problem *was* sized correctly, on day one, in writing — and still got lost, not over months, but within about eighteen hours of continuous, careful, well-reviewed work.
+
+Issue #473, opened in late July, proposed replacing synchronous email delivery with a durable queue. It stated a clean, quantified, non-self-serving trigger:
+
+> "The transition should happen before normal sends exceed roughly 100 recipients or routinely take more than 10–15 seconds."
+
+That's a legitimate usability threshold, not a number invented to justify a predetermined design. Nothing about this issue was the failure. Its stated goal was explicit that the whole point of the redesign was decoupling the HTTP response from total delivery time — it never promised the new system would also finish in 10–15 seconds. So the founding number wasn't a completion-time SLA for the new system; it was the reason synchronous delivery had to go. Worth being precise about that distinction, since getting it wrong is exactly the kind of imprecision this lesson exists to catch.
+
+What #473 also never did — and this is the actual gap — was set *any* completion-time target for the system that replaced it. That's Failure 1 and Failure 2 again, in miniature: no target means no way to check the design against it.
+
+Five weeks later, on September 1st, implementation began. PR #833 (03:13–07:12 that morning) built the executor: 25 recipients claimed per scheduler tick. Its own "Known limitations" section said, correctly and in writing:
+
+> "Scheduler cadence is daily due to the Vercel Hobby plan; sub-daily cron is a real requirement to revisit before/at authored cutover."
+
+That same afternoon and evening, five more rounds of real, careful work happened on exactly this question — scheduler cadence — recorded on issue #845: a decision to use a free external cron-ping service instead of paying for Vercel Pro; an independent review that found five concrete blockers in that plan (secret storage, rotation, a liveness check that doesn't actually prove the scheduler fired); an owner decision reversing course to Vercel Pro instead, reasoning explicitly about future traffic growth; and a final reversal back to the daily Hobby-plan cadence to keep the app deployable, deferring the Pro/5-minute switch to "a tiny follow-up PR."
+
+This was not neglect. Five real decision points, in one evening, each substantive. What none of them did — what nothing in the process made anyone do — was reopen #473 and ask: even at the best cadence being discussed, does 25 recipients per 5 minutes (≈30 minutes to drain 100 recipients) actually solve the problem #473 described, for a system meant to replace one that used to handle 100 recipients synchronously in 10–15 seconds? The founding number was never in the room for any of those five conversations, despite everyone in the room caring, correctly, about exactly the topic that number would have settled.
+
+### Why rapid, engaged iteration is not protection against this
+
+The instinct is to assume this kind of drift needs time and neglect — weeks passing, people forgetting, priorities shifting elsewhere. Same-day evidence says otherwise. This is [lesson 023](023-process-as-product.md)'s claim made concrete: *AI changes the velocity of technical debt, not its economics.* A founding requirement can now be built past, reviewed five times, and left behind, inside a single evening of attentive work — because velocity increased, but nothing about *what travels forward between iterations* changed to match it.
+
+Each of those five same-day exchanges was reviewed on its own terms and passed. None was ever asked to reopen the issue that started the whole effort and do one line of arithmetic against it. That is not a diligence problem. It is a structural one: nothing in the process carries a founding number from the issue that stated it into the artifacts that have to satisfy it, no matter how fast or how careful the intervening work is.
+
+### Making the founding number travel with the work
+
+**Every issue or PR states its founding number up front**, before any other content, as one literal comparison line in the same units as that number:
+
+```
+today: <X>/<unit> → after: <Y>/<unit>  (confidence: measured | estimated | unknown)
+```
+
+Business units — recipients, minutes, dollars — never internal parameters, above this line. If `after` is worse than `today` or than the founding number, that's the finding, and it belongs here, not three thousand words into a "known limitations" section.
+
+**The founding number must be the earliest one, not the most recent one.** #845 introduced its own "initial target SLA" as though setting a fresh baseline, rather than being forced to reconcile against #473's actual number. Citing "no founding number exists" or silently starting a new one when an earlier requirement for the same capability already exists is not acceptable — say "earliest found: none located" if that's true, but don't let a later document quietly become the new ground zero.
+
+**Growth past one PR is a standing obligation to re-run the comparison, not a one-time check.** Nobody declares a fifteen-PR campaign, or a five-round evening, on the first exchange. So: any work beyond the first PR in a multi-part initiative must restate the today → after line against the *founding* issue's own number before it can be approved — every time, not once. Run against this exact case:
+
+```
+today (target, per #473): 100 recipients in ≤15s
+after (best cadence discussed): 100 recipients in ~30min  (confidence: estimated)
+```
+
+Disqualifying on sight, and it requires no new judgment — both numbers were already written down; this only requires putting them next to each other.
+
+**Confidence tags — three, not more — with a real consequence.** `measured` / `estimated` / `unknown`. On any work escalated past routine, `unknown` or a stale `estimated` on the today→after line blocks sign-off until it's measured or explicitly accepted in writing. A tag that changes nothing when it says `unknown` is decoration.
+
+**The only valid response to escalated work is one of three:** `approve` / `clarify: <question>` / `not now`. Not silence, not a default. Choosing from three options isn't an admission that the detail was too much to follow — it's simply how a decision gets made, every time, so it's never accidental.
+
+A near-miss while writing this section is itself worth recording: an early draft demoted the "show the arithmetic" rule below into something an author could skip by not labeling their own work "performance-related." That's the same shape of failure as the durable queue itself, one level removed — a load-bearing check made quietly optional by how the work gets framed. It was caught before anything was committed, by a review built specifically not to trust the draft's own framing. That's the argument for why this has to be structural: even a document about the failure, written immediately after diagnosing it, tried to make the same move.
+
 ## The process introduced: a Problem Validation Gate
 
 The existing [Problem gate](../rules/quality-gates.md) asked whether the problem was *stated clearly*. That is necessary and insufficient. A clearly stated problem can still be rare, harmless, already mitigated, or unsolved by the proposed design.
@@ -173,6 +226,8 @@ A checklist reminds; an Action verifies. Following the progression in [GitHub Ac
 - Require the throughput/capacity table for any issue touching delivery, ingestion, or scheduled processing.
 - Have CI fail an implementation-ready issue that lacks the evidence and arithmetic sections.
 - Require a link to the relevant roadmap classification, so bypassing a prior "Watch" decision is a conscious act rather than an oversight.
+- Require every PR beyond the first in a multi-part initiative to restate the today→after comparison against the founding issue's own number, not just its own local scope.
+- Require `approve` / `clarify: <question>` / `not now` as the only valid response on escalated work — no other response is accepted.
 
 The goal is not bureaucracy. It is to make it *impossible to accidentally skip* the ninety seconds of arithmetic that would have prevented weeks of work.
 
@@ -180,12 +235,15 @@ The goal is not bureaucracy. It is to make it *impossible to accidentally skip* 
 
 > **A plan's rigor tells you nothing about whether the problem is real. Only evidence does — and only arithmetic tells you whether your solution actually solves it.**
 
-Three questions, asked before any significant build, would have prevented every failure described here:
+Four questions, asked before any significant build — and re-asked at every step after — would have prevented every failure described here:
 
 1. **How often does this actually happen, and how bad is it when it does?**
 2. **What do the numbers say — current capacity, proposed capacity, and required capacity at the stated design target, side by side?**
 3. **What is the cheapest thing that would work, and why isn't it enough?**
+4. **Does the founding number still hold, right now, at this step — not just at the start?**
 
-If you cannot answer all three with specifics, you are not ready to build. You are ready to investigate.
+If you cannot answer the first three with specifics, you are not ready to build. You are ready to investigate.
+
+If you cannot answer the fourth, correctly stating the problem once was not enough — velocity, not neglect, is what carries a real requirement out of view, and only something structural, not memory or good intentions, carries it back.
 
 And when your own repository has already answered the question — go read it first.

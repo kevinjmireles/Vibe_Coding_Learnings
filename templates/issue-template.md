@@ -41,7 +41,7 @@ Include screenshots, logs, examples, affected files, links, or reproduction step
 
 ## Problem validation
 
-Required for anything Escalated (see Tier above). See [Do the Math Before You Build](../docs/024-do-the-math-before-you-build.md) and [Re-Check the Number You Already Wrote Down](../docs/025-recheck-the-number-you-already-wrote-down.md).
+Required for anything Escalated (see Tier above). See [Do the Math Before You Build](../docs/024-do-the-math-before-you-build.md).
 
 - **Has it happened?** Incident, log, or report — or an explicit "not observed yet."
 - **Probability × impact:** how often at current scale, and how bad each time.

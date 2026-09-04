@@ -56,7 +56,7 @@ Business units throughout (recipients, minutes, dollars), never internal paramet
 
 > Rigor about execution is not validation of purpose. A meticulous plan can still build the wrong thing — and a correctly validated plan can still drift once implementation spans many PRs, unless the founding number travels with the work.
 
-See [Do the Math Before You Build](../docs/024-do-the-math-before-you-build.md) and [Re-Check the Number You Already Wrote Down](../docs/025-recheck-the-number-you-already-wrote-down.md).
+See [Do the Math Before You Build](../docs/024-do-the-math-before-you-build.md).
 
 ## 2. Reuse and duplication gate
 
