@@ -99,7 +99,7 @@ Continuous detection machinery for an annual, pre-announced, externally-schedule
 
 ## A correctly sized problem can still decay within a single day of rapid iteration
 
-Failure 1 and Failure 2 above describe a problem that was never sized. This is a different, more unsettling case: the problem *was* sized correctly, on day one, in writing — and still got lost, not over months, but within about eighteen hours of continuous, careful, well-reviewed work.
+Failure 1 and Failure 2 above describe a problem that was never sized. This is a different, more unsettling case: the problem *was* sized correctly, on day one, in writing — and still got lost, not over months, but within a single day of continuous, careful, well-reviewed work.
 
 Issue #473, opened in late July, proposed replacing synchronous email delivery with a durable queue. It stated a clean, quantified, non-self-serving trigger:
 
@@ -113,15 +113,15 @@ Five weeks later, on September 1st, implementation began. PR #833 (03:13–07:12
 
 > "Scheduler cadence is daily due to the Vercel Hobby plan; sub-daily cron is a real requirement to revisit before/at authored cutover."
 
-That same afternoon and evening, five more rounds of real, careful work happened on exactly this question — scheduler cadence — recorded on issue #845: a decision to use a free external cron-ping service instead of paying for Vercel Pro; an independent review that found five concrete blockers in that plan (secret storage, rotation, a liveness check that doesn't actually prove the scheduler fired); an owner decision reversing course to Vercel Pro instead, reasoning explicitly about future traffic growth; and a final reversal back to the daily Hobby-plan cadence to keep the app deployable, deferring the Pro/5-minute switch to "a tiny follow-up PR."
+Over the following day, four more real decisions were made on exactly this question — scheduler cadence — recorded across five comments on issue #845: a decision to use a free external cron-ping service instead of paying for Vercel Pro; an independent review that found five findings against that plan (three blockers — secret storage, rotation, a liveness check that doesn't actually prove the scheduler fired — plus two smaller corrections); an owner decision reversing course to Vercel Pro instead, reasoning explicitly about future traffic growth; and a final reversal back to the daily Hobby-plan cadence to keep the app deployable, deferring the Pro/5-minute switch to "a tiny follow-up PR."
 
-This was not neglect. Five real decision points, in one evening, each substantive. What none of them did — what nothing in the process made anyone do — was reopen #473 and ask: even at the best cadence being discussed, does 25 recipients per 5 minutes (≈30 minutes to drain 100 recipients) actually solve the problem #473 described, for a system meant to replace one that used to handle 100 recipients synchronously in 10–15 seconds? The founding number was never in the room for any of those five conversations, despite everyone in the room caring, correctly, about exactly the topic that number would have settled.
+This was not neglect. Four real decisions, in about a day, each substantive. What none of them did — what nothing in the process made anyone do — was reopen #473 and ask: even at the best cadence being discussed, does 25 recipients per 5 minutes (≈30 minutes to drain 100 recipients) actually solve the problem #473 described, for a system meant to replace one that used to handle 100 recipients synchronously in 10–15 seconds? The founding number was never in the room for any of those conversations, despite everyone in the room caring, correctly, about exactly the topic that number would have settled.
 
 ### Why rapid, engaged iteration is not protection against this
 
-The instinct is to assume this kind of drift needs time and neglect — weeks passing, people forgetting, priorities shifting elsewhere. Same-day evidence says otherwise. This is [lesson 023](023-process-as-product.md)'s claim made concrete: *AI changes the velocity of technical debt, not its economics.* A founding requirement can now be built past, reviewed five times, and left behind, inside a single evening of attentive work — because velocity increased, but nothing about *what travels forward between iterations* changed to match it.
+The instinct is to assume this kind of drift needs time and neglect — weeks passing, people forgetting, priorities shifting elsewhere. This evidence says otherwise. This is [lesson 023](023-process-as-product.md)'s claim made concrete: *AI changes the velocity of technical debt, not its economics.* A founding requirement can now be built past, reviewed repeatedly, and left behind, inside about a day of attentive work — because velocity increased, but nothing about *what travels forward between iterations* changed to match it.
 
-Each of those five same-day exchanges was reviewed on its own terms and passed. None was ever asked to reopen the issue that started the whole effort and do one line of arithmetic against it. That is not a diligence problem. It is a structural one: nothing in the process carries a founding number from the issue that stated it into the artifacts that have to satisfy it, no matter how fast or how careful the intervening work is.
+Each of those exchanges was reviewed on its own terms and passed. None was ever asked to reopen the issue that started the whole effort and do one line of arithmetic against it. That is not a diligence problem. It is a structural one: nothing in the process carries a founding number from the issue that stated it into the artifacts that have to satisfy it, no matter how fast or how careful the intervening work is.
 
 ### Making the founding number travel with the work
 

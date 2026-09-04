@@ -19,7 +19,7 @@ A clearly stated problem can still be rare, harmless, already mitigated, or unso
 **Order and format, every time:**
 
 1. One sentence: what is this.
-2. The founding number this traces back to, if one exists (quote the originating issue), or state that none exists yet.
+2. The founding number this traces back to — the **earliest** quantified requirement for this capability, not the most recent document to state one. Before writing "none exists," check the issue's own Parent/originating-issue link and search for prior issues on this capability; a later document is not entitled to quietly become the new baseline just because it's the one in front of you. If a real search turns up nothing, "earliest found: none located" is an acceptable answer — silently skipping the search is not.
 3. One literal comparison line, same units as the founding number:
    `today: <X>/<unit> → after: <Y>/<unit> (confidence: measured | estimated | unknown)`
 4. Cost — PRs, money, new operational surface.
