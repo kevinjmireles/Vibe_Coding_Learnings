@@ -1,6 +1,30 @@
 # Pull Request Template
 
 ```markdown
+**Tier:** Routine (one line, skip below) / Escalated (full gate applies)
+
+## What is this
+
+One sentence, plain language.
+
+## Founding number
+
+Quote the number this traces back to (from the issue that started this initiative) — or state that none exists.
+
+**If this is PR 2 or later in a multi-PR initiative:** restate Today → after against the *founding issue's own number*, not just this PR's local scope. This is required, not optional, every time — that is where drift across a campaign hides.
+
+## Today → after
+
+```
+today: <X>/<unit> → after: <Y>/<unit>  (confidence: measured | estimated | unknown)
+```
+
+Business units, not internal parameters. If `after` is worse than `today` or than the founding number, that is the finding.
+
+## Ask
+
+**approve** / **clarify: <question>** / **not now**
+
 ## Summary
 
 - What changed?

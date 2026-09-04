@@ -5,6 +5,28 @@ Use this template to turn an idea, defect, or improvement into a bounded unit of
 ```markdown
 # [Clear problem-focused title]
 
+**Tier:** Routine (one line, skip below) / Escalated (full gate applies)
+
+## What is this
+
+One sentence, plain language.
+
+## Founding number
+
+Quote the number this traces back to, if this issue continues or motivates other work — or state that none exists yet and this issue is establishing one.
+
+## Today → after
+
+```
+today: <X>/<unit> → after: <Y>/<unit>  (confidence: measured | estimated | unknown)
+```
+
+Business units (recipients, minutes, dollars), not internal parameters. If `after` is worse than `today`, that is the finding — state it here, not buried below.
+
+## Ask
+
+**approve** / **clarify: <question>** / **not now**
+
 ## Problem
 
 What is broken, missing, inconsistent, risky, or unnecessarily difficult?
@@ -19,14 +41,15 @@ Include screenshots, logs, examples, affected files, links, or reproduction step
 
 ## Problem validation
 
-Required for anything larger than a bug fix. See [Do the Math Before You Build](../docs/024-do-the-math-before-you-build.md).
+Required for anything Escalated (see Tier above). See [Do the Math Before You Build](../docs/024-do-the-math-before-you-build.md) and [Re-Check the Number You Already Wrote Down](../docs/025-recheck-the-number-you-already-wrote-down.md).
 
 - **Has it happened?** Incident, log, or report — or an explicit "not observed yet."
 - **Probability × impact:** how often at current scale, and how bad each time.
-- **Arithmetic:** current capacity / proposed capacity / required capacity, same units, side by side.
+- **Arithmetic:** current capacity / proposed capacity / required capacity, same units, side by side — this is the Today → after line above, restated with the underlying numbers. Not optional, regardless of how the work is framed.
 - **Prior classification:** what the roadmap or architecture docs already decided about this capability, and whether its trigger has fired.
 - **Cheapest alternatives considered:** config-only, provider-native, and do-nothing — each priced and rejected with a reason.
 - **New failure surface introduced:** env vars, operational states, scheduled jobs, paid dependencies, triage paths.
+- **Escalation check:** more than one PR (if so, every later PR in this initiative must restate Today → after against this issue's own number) / new recurring cost / new external dependency / new always-on component / irreversible / touches send, signup, or ingest.
 
 ## Existing systems to reuse
 

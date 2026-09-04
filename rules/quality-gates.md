@@ -14,20 +14,49 @@ Before implementation:
 
 ### 1.1 Problem validation gate
 
-A clearly stated problem can still be rare, harmless, already mitigated, or unsolved by the proposed design. For any initiative larger than a bug fix, answer these **in writing, with numbers**:
+A clearly stated problem can still be rare, harmless, already mitigated, or unsolved by the proposed design — and a correctly stated one can still be lost across the many PRs that implement it. For any initiative larger than a bug fix, answer these **in writing, with numbers**, presented so a decision is possible in seconds.
+
+**Order and format, every time:**
+
+1. One sentence: what is this.
+2. The founding number this traces back to, if one exists (quote the originating issue), or state that none exists yet.
+3. One literal comparison line, same units as the founding number:
+   `today: <X>/<unit> → after: <Y>/<unit> (confidence: measured | estimated | unknown)`
+4. Cost — PRs, money, new operational surface.
+5. The ask: **approve** / **clarify: <question>** / **not now**. No other response is valid on escalated work (see Tiering below).
+
+Business units throughout (recipients, minutes, dollars), never internal parameters, above this line. Full technical detail belongs below a divider, unlimited in length, for the builder and reviewer — the approver should never need to read it to decide.
+
+**The underlying content, unconditional regardless of presentation:**
 
 - **Has it actually happened?** Link the incident, log, or user report. If it has not happened yet, say so explicitly rather than leaving it implied.
 - **Probability × impact.** How often at current scale, and what is the blast radius when it occurs?
-- **Show the arithmetic.** Current capacity, proposed capacity, and required capacity — computed from real parameters, in the same units, side by side. If the proposal is slower or smaller than what it replaces, the design is wrong regardless of its elegance.
+- **Show the arithmetic — this is the comparison line above, not optional, not conditional on the change being labeled "performance."** Current capacity, proposed capacity, and required capacity, same units, side by side. If the proposal is slower or smaller than what it replaces, the design is wrong regardless of its elegance. A prior draft of this gate demoted this to something an author could skip by not flagging their own work as scale-related; it is never skippable.
 - **State the scale target as a number.** "Required capacity" means the documented design target, not today's volume. Building ahead of current need is often correct; building without a written target is what produces both over- and under-engineering. If no target exists, establishing one is the first task.
 - **What did the roadmap already say?** If an existing architecture or roadmap document already classified this capability as deferred with a trigger, state whether the trigger has fired. Overriding a prior deliberate deferral requires justifying the override, not just the work.
 - **What is the cheapest thing that would work?** Price at least one config-only, one provider-native, and one do-nothing option, and explain why each is insufficient.
 - **What new failure surface does this create?** New environment variables, operational states, triage paths, scheduled jobs, paid dependencies, and runbook pages are recurring costs paid by everyone who touches the system later.
 - **Where is the real probable breakage?** If this failure mode is unlikely, name the likely one. Redirection is often this gate's most valuable output.
 
-> Rigor about execution is not validation of purpose. A meticulous plan can still build the wrong thing.
+**Tiering — two levels, not more:**
 
-See [Do the Math Before You Build](../docs/024-do-the-math-before-you-build.md).
+- **Routine** (bug fix, copy change, dependency bump, added test): one line, what and why. Nothing above applies.
+- **Everything else:** the full gate applies.
+
+**Escalate immediately, no judgment required, if any of these are true** — and if none are true at authoring time but any become true later, escalate then:
+
+- More than one PR. **This is a standing obligation, not a one-time check:** any PR beyond the first in a multi-PR initiative must restate the today → after comparison against the *founding issue's own number* before it can be approved. A campaign that starts as one PR and grows must re-run this the moment it grows, not retroactively.
+- New recurring cost.
+- New external dependency.
+- New always-on component (cron, worker, queue).
+- Can't be undone by a revert (data migration, provider switch).
+- Touches send, signup, or ingest.
+
+**Confidence tags — three, not more:** measured / estimated / unknown. On escalated work, `unknown` or a stale `estimated` on the today→after comparison blocks sign-off until it is measured or explicitly accepted in writing. A tag that changes nothing when it says `unknown` is decoration, not a control.
+
+> Rigor about execution is not validation of purpose. A meticulous plan can still build the wrong thing — and a correctly validated plan can still drift once implementation spans many PRs, unless the founding number travels with the work.
+
+See [Do the Math Before You Build](../docs/024-do-the-math-before-you-build.md) and [Re-Check the Number You Already Wrote Down](../docs/025-recheck-the-number-you-already-wrote-down.md).
 
 ## 2. Reuse and duplication gate
 
@@ -154,7 +183,7 @@ A change is ready to merge when:
 - documentation is current;
 - no unresolved duplication or architecture concern remains;
 - the Reviewer states clearly that it is ready;
-- the authorized human agrees with the outcome.
+- the authorized human agrees with the outcome, using §1.1's required response format (**approve** / **clarify: <question>** / **not now**) on any escalated work.
 
 > **The best process is one you cannot accidentally skip.**
 

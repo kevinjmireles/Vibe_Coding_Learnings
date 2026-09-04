@@ -26,5 +26,6 @@ This page is an index, not a second copy of the lessons. Each topic has one cano
 22. [Review the Render, Not Just the Code](docs/022-review-the-render-not-just-the-code.md) — green tests can still produce a visibly broken page; capture the real deployed UI in CI and make rendered evidence part of pull-request review.
 23. [Process as Product](docs/023-process-as-product.md) — treat the development system as a product that compounds learning; deliver the required product quality at the lowest total lifecycle cost and make future agents inherit what each failure teaches.
 24. [Do the Math Before You Build](docs/024-do-the-math-before-you-build.md) — a rigorous plan for an unvalidated problem is still waste; size probability and impact, and prove with arithmetic that the solution's real capacity meets the real need.
+25. [Re-Check the Number You Already Wrote Down](docs/025-recheck-the-number-you-already-wrote-down.md) — a correctly quantified requirement still decays across a multi-PR campaign unless it travels with the work; make the founding number impossible to lose rather than trusting it to be remembered.
 
 For readers looking for the smallest useful starting point, see [Steal This: Five Practices to Copy First](principles/steal-this.md).
