@@ -1,263 +1,366 @@
-# Do the Math Before You Build
+# Simplify. Quantify. Clarify.
 
-> **A rigorous plan for an unvalidated problem is still waste. Before building, size the problem — probability and impact — and prove with arithmetic that the proposed solution's real capacity intersects the real need. A correctly sized problem is not then done: without something structural forcing the founding number to travel forward, it can be built past within a single day of fast, careful, well-reviewed iteration.**
+> **AI can generate more detail than any product manager can reasonably absorb. If we do not simplify the decision, quantify the impact, and make it easy to ask questions, approval can become little more than fatigue.**
 
-## KISS. Quantify. Clarify.
+I learned this the expensive way.
 
-Everything in this lesson reduces to three words, in this order:
+We were building a much more sophisticated email-delivery system for Fido.
 
-- **Keep it simple.** Before building anything, find the cheapest thing that would work — config change, existing library feature, provider-native capability, a re-run instead of a rebuild — and require it to be priced and explicitly rejected, not silently skipped.
-- **Quantify.** State the problem, the trigger, and the target as real numbers, in business units, not parameters. Show today's capacity, the proposed capacity, and the required capacity side by side. If you can't put a number on it, you're not ready to build — you're ready to investigate.
-- **Clarify.** Make it cheap and normal to ask instead of guess. `clarify: <question>` is always a valid, low-friction answer — for the builder unsure what "done" means, and for the approver who doesn't want to rubber-stamp something they don't understand. The system should make asking easier than nodding along.
+The work looked great.
 
-Simple, quantified, and easy to question — in that order, because a simple thing is cheap to quantify, and a quantified thing is easy to ask a sharp question about. Skip straight to "clarify" on a complex, unquantified plan and the questions have nowhere to attach.
+There were detailed plans. Multiple pull requests. Tests. Reviews. Failure handling. Retry logic. Rollback plans. Lots and lots of thoughtful explanation.
 
-We spent a significant amount of effort building a durable, crash-safe, lease-fenced, retry-capable email delivery queue.
+I read it.
 
-It worked. It was well-tested. It had migrations, real-PostgreSQL concurrency tests, an operator runbook, a fail-closed kill switch, an activation cutoff guard, and a carefully sequenced rollout plan with six phases and roughly twenty acceptance criteria.
+Then I skimmed it.
 
-Then someone asked a simple question:
+Then, if I am being completely candid, my eyes started to glaze over.
 
-> How long would this take to send 100,000 emails?
+And I kept saying yes.
 
-**Fourteen days.**
+I am the product manager. I am supposed to be making the decision. But the explanations had become so technical and so detailed that I was no longer really evaluating the decision.
 
-Nobody had done that arithmetic. Not in the issue. Not in any of the pull requests. Not in the review.
+I was looking for signals that smart work had been done and approving it.
 
-## Failure pattern: solving an unvalidated problem, unusably
+Then I asked one very simple question:
 
-Two distinct failures stacked on top of each other. Either one alone is expensive. Together they produce work that cannot be salvaged by tuning.
+> **How long would this take to send 100,000 emails?**
 
-### Failure 1: the problem was never sized
+The answer was about **14 days**.
 
-The system was built to solve "a large send could fail partway through and leave inconsistent state."
+Wait. What?
 
-That is a real failure mode. But nobody asked how *probable* it was, or how *impactful*, at the scale the product actually operates at. Had we asked, the answer was already written down in our own repository:
+We were building a new system partly because we wanted email delivery to scale better.
 
-> "the platform's current single-Supabase-project, single-send-worker, synchronous `/api/send/execute` design is explicitly designed to handle this comfortably"
+The new design could process about **5 emails a minute**.
 
-And more specifically, the roadmap had already classified this exact capability:
+The existing system could process roughly **1,200–3,000 a minute**.
 
-> **N-parallel-worker send execution (replacing single synchronous `/api/send/execute` run)** — Category: **Watch**. Trigger: ceilings "actually hit by real cohort sizes such that a single run can't complete in an acceptable window. **Not yet observed.**"
+We had built something hundreds of times slower than what we already had.
 
-The guardrail existed. It was specific, it named this exact work, it set an explicit trigger, and it recorded that the trigger had not fired.
+All the technical detail had obscured the one thing I actually needed to understand.
 
-Nobody opened the file.
+That was the moment this became a much bigger lesson for me.
 
-That is a different and more painful failure than not knowing. The analysis had already been done by our own past selves, and the work proceeded anyway because no step in the process forced anyone to go look.
+## This is not really an engineering problem
 
-### Failure 2: the solution's capacity never intersected the need
+It is a product-management problem.
 
-The delivery queue processed **one job per scheduler tick, 25 recipients per tick, on a 5-minute cadence.**
+I have spent nearly 30 years working in and around software. One of the dirty little secrets of product management is that **we do not always completely understand what y'all are doing.**
 
-That is the arithmetic nobody ran:
+We understand the customer.
 
-| | Throughput |
-|---|---|
-| New durable queue | 25 per 5 min = **5/min** = 7,200/day |
-| Existing synchronous path it replaced | 10 concurrent provider calls ≈ **1,200–3,000/min** |
+We understand the problem.
 
-The replacement was **roughly 250–600× slower than the code it was meant to supersede.**
+We understand the business.
 
-At that rate, 20,000 recipients takes about three days and 100,000 takes about two weeks. Meanwhile the "primitive" synchronous path it was displacing would have done 10,000 in a handful of minutes.
+We understand what outcome we are trying to create.
 
-So the new system was simultaneously:
+But when an engineer starts talking about queues, leases, caching strategies, concurrency models, database locks, retry semantics, or whatever else is happening six layers below the product, there is a point where a product manager's understanding gets fuzzy.
 
-- **unnecessary** at the volumes the product actually sends (where the old path finishes in seconds), and
-- **unusable** at the volumes that would have justified building it.
+That is normal.
 
-There was no volume at which it was the right tool. It was a sledgehammer that was also too small to kill the fly.
+A product manager should not need to understand every implementation detail.
 
-## Why this happens with AI
+But we **do** need to understand enough to answer some very basic questions:
 
-The plan *looked* rigorous. That was the trap.
+- Is this the right problem?
+- How big is the problem?
+- Is the proposed solution actually better?
+- What will it cost?
+- What are we giving up?
+- Should we do this at all?
 
-It had phases, acceptance criteria, rollback sequences, evidence requirements, explicit non-goals, and a STOP/REVIEW gate. Every individual element was thoughtful. A reviewer skimming it would come away impressed.
+Good product and engineering teams have always had to bridge that gap.
 
-But **rigor about execution is not the same as validation of purpose.** A document can be meticulous about *how* to build the wrong thing.
+**Vibe coding makes the problem much bigger.**
 
-AI makes this failure much easier to reach:
+Now my “engineering team” can generate code, tests, architecture, documentation, and a 5,000-word explanation at machine speed.
 
-- Ask an agent to plan a durable queue and it will produce an excellent durable queue plan. It will not spontaneously ask whether you need a queue.
-- Agents are strongly biased toward the framing in the prompt. "Make the send pipeline durable" is accepted as a premise, not examined as a hypothesis.
-- The cost of *producing* elaborate plans has collapsed, so plan length no longer signals that anyone thought hard about necessity. It used to take a week to write a six-phase rollout plan, and that week was itself a forcing function.
-- Nobody's arithmetic gets checked, because the plan contains numbers (batch size 25, lease 120s, retry ×5) that *look* like quantitative reasoning. Parameters are not projections.
+I can go through multiple rounds of implementation in an evening.
 
-The specific tell, in hindsight: the plan contained an SLA table for 25, 100, 250, and 500 recipients. Those numbers were never reconciled against what the business actually needed to send. The table made the plan feel quantified while quietly defining the problem down to whatever the chosen design happened to handle.
+The AI can produce technical detail much faster than I can absorb it.
 
-## The workarounds nobody priced
+So the danger is not merely that the AI writes bad code.
 
-Before building a queue, the cheap options should have been costed and rejected explicitly. None of them were considered:
+The danger is that it writes **plausible, sophisticated, well-documented code that I approve without really understanding the decision I just made.**
 
-1. **Change two environment variables.** The sync path's recipient cap and parallelism were already configurable. Raising them was a config change with zero code.
-2. **Use the provider's batching.** The email provider accepts up to 1,000 recipients in a single API call. The entire architecture was built on the unexamined premise of one email per API call per row — a premise that, once questioned, removes most of the pressure that justified the queue.
-3. **Re-run the failed send.** The system *already* deduplicated on a sent-only identity key. A partially-completed send could simply be run again; already-sent recipients would be skipped automatically. The core disaster scenario the queue was built to prevent already had a safe, zero-code answer.
+Eventually, that bites you in the ass.
 
-Option 3 is the one that stings. The cheapest mitigation was already built, already tested, and already documented — and the durable queue's own design documents referenced it as an invariant to preserve, without anyone noticing it made the queue largely unnecessary at current scale.
+So I have reduced the solution to three words:
 
-## The other shape of this: mechanism disproportionate to frequency
+# Simplify. Quantify. Clarify.
 
-The same failure appears without any throughput math, whenever a mechanism's complexity is wildly out of proportion to how often the thing it watches actually changes.
+## 1. Simplify
 
-We reviewed a plan with elaborate change-detection logic for county boundaries.
+The first job is not to simplify the engineering.
 
-County boundaries do change — Connecticut's county-equivalents were reorganized recently, and Alaska occasionally redraws census areas. So the correct answer is not "never check." But the *frequency* is roughly annual at the very most, driven by scheduled Census releases, not continuous drift.
+Complex systems sometimes require complex engineering.
 
-Continuous detection machinery for an annual, pre-announced, externally-scheduled event is the wrong mechanism. Checking at data-ingest time, or once a year against the published release, gets essentially all of the value for essentially none of the complexity.
+The job is to **simplify the decision**.
 
-> **Match the mechanism's cadence to the phenomenon's cadence. Continuous monitoring of a phenomenon that changes annually is not thoroughness — it's cost with no marginal detection benefit.**
+If I have to read 3,000 words and understand five previous pull requests before I can decide whether to approve the sixth, the process has already failed.
 
-## A correctly sized problem can still decay within a single day of rapid iteration
+Give me the decision first.
 
-Failure 1 and Failure 2 above describe a problem that was never sized. This is a different, more unsettling case: the problem *was* sized correctly, on day one, in writing — and still got lost, not over months, but within a single day of continuous, careful, well-reviewed work.
+What are we doing?
 
-Issue #473, opened in late July, proposed replacing synchronous email delivery with a durable queue. It stated a clean, quantified, non-self-serving trigger:
+Why?
 
-> "The transition should happen before normal sends exceed roughly 100 recipients or routinely take more than 10–15 seconds."
+What will be different afterward?
 
-That's a legitimate usability threshold, not a number invented to justify a predetermined design. Nothing about this issue was the failure. Its stated goal was explicit that the whole point of the redesign was decoupling the HTTP response from total delivery time — it never promised the new system would also finish in 10–15 seconds. So the founding number wasn't a completion-time SLA for the new system; it was the reason synchronous delivery had to go. Worth being precise about that distinction, since getting it wrong is exactly the kind of imprecision this lesson exists to catch.
+What does it cost?
 
-What #473 also never did — and this is the actual gap — was set *any* completion-time target for the system that replaced it. That's Failure 1 and Failure 2 again, in miniature: no target means no way to check the design against it.
+What do you need me to decide?
 
-Five weeks later, on September 1st, implementation began. PR #833 (03:13–07:12 that morning) built the executor: 25 recipients claimed per scheduler tick. Its own "Known limitations" section said, correctly and in writing:
+Then put all the engineering detail underneath it for the people and AI agents who need it.
 
-> "Scheduler cadence is daily due to the Vercel Hobby plan; sub-daily cron is a real requirement to revisit before/at authored cutover."
+This also applies to the solution itself.
 
-Over the following day, four more real decisions were made on exactly this question — scheduler cadence — recorded across five comments on issue #845: a decision to use a free external cron-ping service instead of paying for Vercel Pro; an independent review that found five findings against that plan (three blockers — secret storage, rotation, a liveness check that doesn't actually prove the scheduler fired — plus two smaller corrections); an owner decision reversing course to Vercel Pro instead, reasoning explicitly about future traffic growth; and a final reversal back to the daily Hobby-plan cadence to keep the app deployable, deferring the Pro/5-minute switch to "a tiny follow-up PR."
+Before we build something complicated, ask:
 
-This was not neglect. Four real decisions, in about a day, each substantive. What none of them did — what nothing in the process made anyone do — was reopen #473 and ask: even at the best cadence being discussed, does 25 recipients per 5 minutes (≈30 minutes to drain 100 recipients) actually solve the problem #473 described, for a system meant to replace one that used to handle 100 recipients synchronously in 10–15 seconds? The founding number was never in the room for any of those conversations, despite everyone in the room caring, correctly, about exactly the topic that number would have settled.
+> **What is the simplest thing that could solve this problem?**
 
-### Why rapid, engaged iteration is not protection against this
+Could we change a setting?
 
-The instinct is to assume this kind of drift needs time and neglect — weeks passing, people forgetting, priorities shifting elsewhere. This evidence says otherwise. This is [lesson 023](023-process-as-product.md)'s claim made concrete: *AI changes the velocity of technical debt, not its economics.* A founding requirement can now be built past, reviewed repeatedly, and left behind, inside about a day of attentive work — because velocity increased, but nothing about *what travels forward between iterations* changed to match it.
+Could we use something we already built?
 
-Each of those exchanges was reviewed on its own terms and passed. None was ever asked to reopen the issue that started the whole effort and do one line of arithmetic against it. That is not a diligence problem. It is a structural one: nothing in the process carries a founding number from the issue that stated it into the artifacts that have to satisfy it, no matter how fast or how careful the intervening work is.
+Does the vendor already provide the capability?
 
-### Making the founding number travel with the work
+Could we simply rerun the process if it fails?
 
-**Every issue or PR states its founding number up front**, before any other content, as one literal comparison line in the same units as that number:
+Could we do nothing yet?
 
-```
-today: <X>/<unit> → after: <Y>/<unit>  (confidence: measured | estimated | unknown)
-```
+In our email example, several dramatically simpler options already existed.
 
-Business units — recipients, minutes, dollars — never internal parameters, above this line. If `after` is worse than `today` or than the founding number, that's the finding, and it belongs here, not three thousand words into a "known limitations" section.
+We had not really forced ourselves to consider them because the conversation had already jumped to **how to build the new system**, rather than **whether we needed to build it**.
 
-**The founding number must be the earliest one, not the most recent one.** #845 introduced its own "initial target SLA" as though setting a fresh baseline, rather than being forced to reconcile against #473's actual number. Citing "no founding number exists" or silently starting a new one when an earlier requirement for the same capability already exists is not acceptable — say "earliest found: none located" if that's true, but don't let a later document quietly become the new ground zero.
+That is classic product management.
 
-**Growth past one PR is a standing obligation to re-run the comparison, not a one-time check.** Nobody declares a fifteen-PR campaign, or a five-round evening, on the first exchange. So: any work beyond the first PR in a multi-part initiative must restate the today → after line against the *founding* issue's own number before it can be approved — every time, not once. Run against this exact case:
+AI just lets us make the mistake much faster.
 
-```
-today (target, per #473): 100 recipients in ≤15s
-after (best cadence discussed): 100 recipients in ~30min  (confidence: estimated)
-```
+## 2. Quantify
 
-Disqualifying on sight, and it requires no new judgment — both numbers were already written down; this only requires putting them next to each other.
+Simplifying the explanation is not enough.
 
-**Confidence tags — three, not more — with a real consequence.** `measured` / `estimated` / `unknown`. On any work escalated past routine, `unknown` or a stale `estimated` on the today→after line blocks sign-off until it's measured or explicitly accepted in writing. A tag that changes nothing when it says `unknown` is decoration.
+The explanation also needs numbers.
 
-**The only valid response to escalated work is one of three:** `approve` / `clarify: <question>` / `not now`. Not silence, not a default. Choosing from three options isn't an admission that the detail was too much to follow — it's simply how a decision gets made, every time, so it's never accidental.
+And they need to be **product numbers**, not engineering numbers.
 
-**The founding issue owns the full gate; a PR only carries the compressed brief plus a link back.** This one wasn't designed in advance — it came from actually running the format on real work. A live pilot on an unrelated yff-web PR found that copying the whole validation gate into the PR body recreated the exact density problem this gate exists to prevent. The fix is the same principle applied one level up: the deep evidence lives in one place (the founding issue), and everything downstream links to it instead of restating it — with one exception, that a PR changing the problem itself must update the founding issue rather than silently drifting from it.
+“Batch size: 25.”
 
-A near-miss while writing this section is itself worth recording: an early draft demoted the "show the arithmetic" rule below into something an author could skip by not labeling their own work "performance-related." That's the same shape of failure as the durable queue itself, one level removed — a load-bearing check made quietly optional by how the work gets framed. It was caught before anything was committed, by a review built specifically not to trust the draft's own framing. That's the argument for why this has to be structural: even a document about the failure, written immediately after diagnosing it, tried to make the same move.
+“Lease duration: 120 seconds.”
 
-## The process introduced: a Problem Validation Gate
+“Five retry attempts.”
 
-The existing [Problem gate](../rules/quality-gates.md) asked whether the problem was *stated clearly*. That is necessary and insufficient. A clearly stated problem can still be rare, harmless, already mitigated, or unsolved by the proposed design.
+Those are numbers.
 
-Before any initiative larger than a bug fix, answer these — **in writing, in the issue, with numbers**:
+But they do not tell me whether the product is getting better.
 
-### 1. What actually breaks, and has it broken?
+Tell me:
 
-Has this failed in production? How many times? Link the incident, log, or user report.
+**5 emails per minute.**
 
-If the honest answer is "it hasn't happened yet," say so explicitly. That is not disqualifying — but it must be *stated*, because it changes everything downstream.
+**1,200–3,000 emails per minute today.**
 
-### 2. Probability × impact
+**100,000 emails = roughly 14 days with the proposed design.**
 
-How often would this occur at current scale, and what is the blast radius when it does?
+Now I understand the decision.
 
-A daily occurrence that annoys one admin and an annual occurrence that corrupts customer data warrant completely different investments. Write down both numbers, even as rough estimates.
+That is the difference.
 
-### 3. Show the arithmetic
+The basic comparison should usually be painfully simple:
 
-Not parameters. **Projections.**
+**Today → After**
 
-- What throughput/latency/volume does the current system achieve?
-- What will the proposed system achieve, computed from its actual parameters?
-- What does the business actually need?
+How long does it take today?
 
-All three numbers, in the same units, in the same table. If the new system's number is worse than the current system's, the design is wrong regardless of how elegant it is.
+How long will it take afterward?
 
-This one question would have caught our failure in about ninety seconds.
+How many people can we support today?
 
-**"Required capacity" means the design target, not today's volume.** This is the distinction that makes the difference between prudent preparation and waste.
+How many afterward?
 
-Building ahead of current need is often correct. A product that intends to go from 100 subscribers to 100,000 should not architect for 100 — discovering at launch that the delivery path needs a rewrite is exactly the expensive outcome this gate exists to prevent.
+How much does it cost today?
 
-But "prepare for scale" only works if the target is written down as a number and the design is checked against *it*. Our failure was not preparing for scale. It was building a specific implementation whose throughput nobody ever compared to the scale target — a target that, we later realized, had never been stated anywhere at all.
+How much afterward?
 
-Had the issue said "must reach 100,000 recipients without a rewrite," the chosen design (25 recipients per 5-minute tick) would have been rejected immediately, and the actual bottleneck — one provider API call per recipient, when the provider accepts 1,000 per call — would have been obvious on day one.
+How often does this problem actually happen?
 
-> **An unstated scale target is the root cause hiding behind most over- and under-engineering. Write the number down, then check the design against the number.**
+How bad is it when it does?
 
-Note also what this reveals about *which* work was wasted. The durable persistence layer — job and recipient state, lease fencing, retry tracking, dedupe — was the right foundation, because at the target scale a send genuinely cannot complete inside one request. The defect was isolated to the dispatch layer. Sizing the problem correctly does not always mean building less; sometimes it means building the same substrate with completely different parameters.
+And what number are we actually trying to reach?
 
-### 4. What did the roadmap already say?
+That last question turned out to be especially important.
 
-Check the existing architecture and roadmap documents for this exact capability *before* planning it. If a prior decision classified it as deferred, with a trigger, then the only valid first question is: **has the trigger fired?**
+The original email work had at least started with a useful trigger: we should move away from synchronous delivery before normal sends got beyond roughly 100 recipients or regularly took more than 10–15 seconds.
 
-If it has not fired, the burden is to justify overriding a past deliberate decision — not merely to justify the new work on its own merits.
+But as implementation continued, that original number disappeared from the conversation.
 
-### 5. What is the cheapest thing that would work?
+Worse, we never replaced it with a clear target for how quickly the new system itself should complete delivery.
 
-List at least one config-only, one provider-native, and one do-nothing option. Price each. Explain why each is insufficient.
+So people could make perfectly reasonable technical decisions inside each individual pull request while the overall product slowly drifted away from the reason we started the work.
 
-"We didn't think of one" is not an answer; it is a signal to stop and think of one.
+This is another thing AI changes.
 
-### 6. What new failure surface does this create?
+A requirement no longer has months to get lost.
 
-New env vars, new operational states, new triage paths, new scheduled jobs, new paid dependencies, new runbook pages, new things that can silently stop working.
+It can get lost **in an afternoon**.
 
-Complexity is a recurring cost paid by every future engineer and agent touching the system. Name it before accepting it.
+So the original number has to travel with the work.
 
-### 7. Where is the *real* probable breakage?
+Not because engineers love metrics.
 
-If this failure mode is unlikely, what is the likely one? Is the effort being spent where the actual risk is?
+Because numbers give the product manager something concrete to judge.
 
-The most valuable output of this gate is often redirection rather than rejection.
+## 3. Clarify
 
-## Making it enforceable
+This may be the most important one.
 
-A checklist reminds; an Action verifies. Following the progression in [GitHub Actions Turn Rules into Guardrails](014-github-actions-turn-rules-into-guardrails.md):
+We need to make it **easy to say “I do not understand.”**
 
-**lesson → rule → template → automated check → required gate**
+Product managers do not like looking stupid.
 
-- Add these questions to the issue template, so the structure is visible.
-- Require the throughput/capacity table for any issue touching delivery, ingestion, or scheduled processing.
-- Have CI fail an implementation-ready issue that lacks the evidence and arithmetic sections.
-- Require a link to the relevant roadmap classification, so bypassing a prior "Watch" decision is a conscious act rather than an oversight.
-- Require every PR beyond the first in a multi-part initiative to restate the today→after comparison against the founding issue's own number, not just its own local scope.
-- Require `approve` / `clarify: <question>` / `not now` as the only valid response on escalated work — no other response is accepted.
+Neither do executives.
 
-The goal is not bureaucracy. It is to make it *impossible to accidentally skip* the ninety seconds of arithmetic that would have prevented weeks of work.
+Neither do founders.
 
-## Reusable takeaway
+When a technically sophisticated explanation lands in front of you, there is a subtle pressure to assume the people who wrote it know what they are doing.
 
-> **A plan's rigor tells you nothing about whether the problem is real. Only evidence does — and only arithmetic tells you whether your solution actually solves it.**
+And when you have already read 2,000 words, asking someone to explain it again can feel like you are slowing everyone down.
 
-Four questions, asked before any significant build — and re-asked at every step after — would have prevented every failure described here:
+So you approve it.
 
-1. **How often does this actually happen, and how bad is it when it does?**
-2. **What do the numbers say — current capacity, proposed capacity, and required capacity at the stated design target, side by side?**
-3. **What is the cheapest thing that would work, and why isn't it enough?**
-4. **Does the founding number still hold, right now, at this step — not just at the start?**
+AI makes that dynamic worse because the AI does not get tired.
 
-If you cannot answer the first three with specifics, you are not ready to build. You are ready to investigate.
+It is always ready for the next instruction.
 
-If you cannot answer the fourth, correctly stating the problem once was not enough — velocity, not neglect, is what carries a real requirement out of view, and only something structural, not memory or good intentions, carries it back.
+If I misunderstand something and say “go,” it goes.
 
-And when your own repository has already answered the question — go read it first.
+Fast.
 
-**KISS. Quantify. Clarify.** Every mechanism in this lesson — the cheapest-alternative check, the today→after line, the confidence tags, the `approve` / `clarify` / `not now` menu — is one of these three words made concrete. If a future fix to this process doesn't reduce to one of them, it's probably solving a different problem than the one this lesson is about.
+So I have started making clarification an explicit part of the decision process.
+
+For meaningful work, there are three perfectly legitimate responses:
+
+**Approve.**
+
+**Clarify: [my question].**
+
+**Not now.**
+
+That is it.
+
+“Clarify” is not a failure.
+
+It is not an admission that the product manager is not technical enough.
+
+It is part of the process.
+
+If I do not understand why we are doing something, how much it matters, or what will happen afterward, **the correct product-management action is to ask.**
+
+The system should make asking easier than nodding along.
+
+## The five lines I actually need
+
+We have started turning this into a very small Decision Brief at the top of meaningful issues and pull requests.
+
+It is deliberately short:
+
+**What is this?**
+
+One plain-English sentence.
+
+**What number started this work?**
+
+The original trigger or target.
+
+**Today → After**
+
+The actual change in business terms.
+
+**Cost**
+
+Pull requests, money, operational complexity, or other meaningful cost.
+
+**Ask**
+
+Approve / Clarify / Not now.
+
+That is the interface between the detailed engineering work and the human responsible for the product decision.
+
+The detailed analysis still exists.
+
+Tests still exist.
+
+Architecture still exists.
+
+The engineering discussion can be as sophisticated as it needs to be.
+
+**I just should not have to understand all of it before I can understand the decision.**
+
+And we are deliberately not copying the whole problem analysis into every pull request.
+
+The original issue owns the deep thinking.
+
+The pull request gives me the short version and links back.
+
+Otherwise we would solve information overload by generating even more information.
+
+The mechanics behind this live in the repository's [Quality Gates](../rules/quality-gates.md), but the management principle is much simpler than the mechanism:
+
+> **Simplify the decision. Quantify the impact. Make clarification normal.**
+
+## This is bigger than vibe coding
+
+I think this may turn out to be one of the more important lessons I have learned from building software with AI.
+
+The promise of vibe coding is not that product managers suddenly become engineers.
+
+I still do not write the code.
+
+The promise is that people like me can work much closer to implementation and move dramatically faster than we could before.
+
+But that creates a new problem:
+
+**Execution is getting faster than human understanding.**
+
+That changes the bottleneck.
+
+Writing the code may no longer be the slow part.
+
+Understanding what we are building, deciding whether it is worth building, and keeping the work aligned with the product may become the slow part.
+
+Which means product management does not become less important in an AI world.
+
+It becomes **more important**.
+
+The answer is not for the product manager to read faster.
+
+And it is not to ask the AI for another 5,000 words.
+
+It is to create a better interface between machine-speed execution and human judgment.
+
+**Simplify the decision.**
+
+**Quantify the impact.**
+
+**Make clarification normal.**
+
+Then let the engineers—or the AI—go as deep as they need to underneath it.
+
+This is the same broader idea behind [Process as Product](023-process-as-product.md): if AI changes how quickly work can move, the management system around the work has to evolve too.
+
+## The reusable takeaway
+
+The biggest risk in vibe coding is not necessarily bad code.
+
+It may be **good-looking work that moves so fast, with so much convincing detail, that the human responsible for the product stops truly evaluating it.**
+
+That is a management problem.
+
+And the fix is surprisingly simple:
+
+# Simplify. Quantify. Clarify.
+
+If the AI cannot explain the decision simply, put meaningful numbers around the outcome, and make it easy for the human to question the work, then it is not ready for approval.
