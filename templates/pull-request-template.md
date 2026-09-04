@@ -1,6 +1,34 @@
 # Pull Request Template
 
 ```markdown
+The issue owns deep problem validation. This PR carries the decision brief and any required re-check against the founding number — link to the issue; do not duplicate its full validation here unless this PR itself changes the problem.
+
+**Tier:** Routine (one line, skip below) / Escalated (full gate applies)
+
+## What is this
+
+One sentence, plain language.
+
+## Founding number
+
+Quote the number this traces back to (from the issue that started this initiative), with a link to that issue — or state that none exists.
+
+**If this is PR 2 or later in a multi-PR initiative:** restate Today → after against the *founding issue's own number*, not just this PR's local scope. This is required, not optional, every time — that is where drift across a campaign hides.
+
+**If this PR changes the problem, target, scope, assumptions, or cost enough that the founding issue's validation is no longer accurate:** update the founding issue (or record an explicit superseding decision there) before restating the new founding number here. Don't let the PR quietly drift from the issue instead.
+
+## Today → after
+
+```
+today: <X>/<unit> → after: <Y>/<unit>  (confidence: measured | estimated | unknown)
+```
+
+Business units, not internal parameters. If `after` is worse than `today` or than the founding number, that is the finding.
+
+## Ask
+
+**approve** / **clarify: <question>** / **not now**
+
 ## Summary
 
 - What changed?
