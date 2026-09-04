@@ -127,6 +127,18 @@ All three numbers, in the same units, in the same table. If the new system's num
 
 This one question would have caught our failure in about ninety seconds.
 
+**"Required capacity" means the design target, not today's volume.** This is the distinction that makes the difference between prudent preparation and waste.
+
+Building ahead of current need is often correct. A product that intends to go from 100 subscribers to 100,000 should not architect for 100 — discovering at launch that the delivery path needs a rewrite is exactly the expensive outcome this gate exists to prevent.
+
+But "prepare for scale" only works if the target is written down as a number and the design is checked against *it*. Our failure was not preparing for scale. It was building a specific implementation whose throughput nobody ever compared to the scale target — a target that, we later realized, had never been stated anywhere at all.
+
+Had the issue said "must reach 100,000 recipients without a rewrite," the chosen design (25 recipients per 5-minute tick) would have been rejected immediately, and the actual bottleneck — one provider API call per recipient, when the provider accepts 1,000 per call — would have been obvious on day one.
+
+> **An unstated scale target is the root cause hiding behind most over- and under-engineering. Write the number down, then check the design against the number.**
+
+Note also what this reveals about *which* work was wasted. The durable persistence layer — job and recipient state, lease fencing, retry tracking, dedupe — was the right foundation, because at the target scale a send genuinely cannot complete inside one request. The defect was isolated to the dispatch layer. Sizing the problem correctly does not always mean building less; sometimes it means building the same substrate with completely different parameters.
+
 ### 4. What did the roadmap already say?
 
 Check the existing architecture and roadmap documents for this exact capability *before* planning it. If a prior decision classified it as deferred, with a trigger, then the only valid first question is: **has the trigger fired?**
@@ -171,7 +183,7 @@ The goal is not bureaucracy. It is to make it *impossible to accidentally skip* 
 Three questions, asked before any significant build, would have prevented every failure described here:
 
 1. **How often does this actually happen, and how bad is it when it does?**
-2. **What do the numbers say — current capacity, proposed capacity, and required capacity, side by side?**
+2. **What do the numbers say — current capacity, proposed capacity, and required capacity at the stated design target, side by side?**
 3. **What is the cheapest thing that would work, and why isn't it enough?**
 
 If you cannot answer all three with specifics, you are not ready to build. You are ready to investigate.
