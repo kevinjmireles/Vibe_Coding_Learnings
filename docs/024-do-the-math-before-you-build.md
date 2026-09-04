@@ -148,6 +148,8 @@ Disqualifying on sight, and it requires no new judgment — both numbers were al
 
 **The only valid response to escalated work is one of three:** `approve` / `clarify: <question>` / `not now`. Not silence, not a default. Choosing from three options isn't an admission that the detail was too much to follow — it's simply how a decision gets made, every time, so it's never accidental.
 
+**The founding issue owns the full gate; a PR only carries the compressed brief plus a link back.** This one wasn't designed in advance — it came from actually running the format on real work. A live pilot on an unrelated yff-web PR found that copying the whole validation gate into the PR body recreated the exact density problem this gate exists to prevent. The fix is the same principle applied one level up: the deep evidence lives in one place (the founding issue), and everything downstream links to it instead of restating it — with one exception, that a PR changing the problem itself must update the founding issue rather than silently drifting from it.
+
 A near-miss while writing this section is itself worth recording: an early draft demoted the "show the arithmetic" rule below into something an author could skip by not labeling their own work "performance-related." That's the same shape of failure as the durable queue itself, one level removed — a load-bearing check made quietly optional by how the work gets framed. It was caught before anything was committed, by a review built specifically not to trust the draft's own framing. That's the argument for why this has to be structural: even a document about the failure, written immediately after diagnosing it, tried to make the same move.
 
 ## The process introduced: a Problem Validation Gate

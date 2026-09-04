@@ -16,6 +16,8 @@ Before implementation:
 
 A clearly stated problem can still be rare, harmless, already mitigated, or unsolved by the proposed design — and a correctly stated one can still be lost across the many PRs that implement it. For any initiative larger than a bug fix, answer these **in writing, with numbers**, presented so a decision is possible in seconds.
 
+**The founding issue owns this gate in full. A PR carries only the compressed presentation below plus a link back — never a full restatement of the issue's validation.** A live pilot of this format found that recreating the whole gate in every PR body recreates the exact density problem this gate exists to prevent. Exception: if the PR itself changes the problem, target, scope, assumptions, or cost enough that the issue's validation is no longer accurate, update the founding issue (or record an explicit superseding decision there) before restating a new founding number in the PR — don't let the PR quietly drift from the issue instead.
+
 **Order and format, every time:**
 
 1. One sentence: what is this.
